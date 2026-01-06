@@ -1,0 +1,4 @@
+@import '@habbit-tracker/ui/styles/globals.css';
+
+/* force Tailwind to look into UI package for scanning */
+@source "../node_modules/@habbit-tracker/ui";
