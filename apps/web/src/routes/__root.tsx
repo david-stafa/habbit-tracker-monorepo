@@ -1,4 +1,5 @@
-import { createRootRoute, Outlet } from '@tanstack/react-router'
+import { ThemeProvider } from '@habbit-tracker/ui/components/theme-provider'
+import { createRootRoute, HeadContent, Outlet } from '@tanstack/react-router'
 
 export const Route = createRootRoute({
   component: RootLayout,
@@ -7,9 +8,22 @@ export const Route = createRootRoute({
 
 function RootLayout() {
   return (
-    <>
-      <header>My App</header>
-      <Outlet />
-    </>
+    <Wrapper>
+      <div className="max-w-3xl">
+        <header>My App</header>
+        <Outlet />
+      </div>
+    </Wrapper>
   )
 }
+
+const Wrapper = ({ children }: { children: React.ReactNode }) => (
+  <>
+    <HeadContent />
+    <ThemeProvider>
+      {children}
+      {/* <TanStackRouterDevtools />
+      <ReactQueryDevtools /> */}
+    </ThemeProvider>
+  </>
+)
