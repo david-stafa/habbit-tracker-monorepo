@@ -1,8 +1,7 @@
 {
-  "name": "api",
+  "name": "@habbit-tracker/api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
