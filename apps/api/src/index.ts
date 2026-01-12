@@ -1,4 +1,4 @@
-import { BASE_URL, PORT } from "./config"
+import { BASE_URL, PORT } from "./config.js"
 import express from 'express'
 
 const app = express()
