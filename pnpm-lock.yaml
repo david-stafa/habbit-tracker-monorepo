@@ -54,6 +54,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@habbit-tracker/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@habbit-tracker/ui':
         specifier: workspace:*
         version: link:../../packages/ui
