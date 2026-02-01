@@ -10,4 +10,12 @@ import { reactConfig } from '@habbit-tracker/eslint-config/react'
  *   { rules: { 'your-rule': 'error' } }
  * ];
  */
-export default reactConfig
+
+export default [
+  ...reactConfig,
+  {
+    rules: {
+    'react/no-unescaped-entities': 'off',
+    },
+  },
+]

@@ -1,14 +1,20 @@
 {
   "name": "@habbit-tracker/db",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
+    "postinstall": "prisma generate",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy"
   },
   "devDependencies": {
+    "@habbit-tracker/eslint-config": "workspace:*",
+    "@habbit-tracker/typescript-config": "workspace:*",
     "@types/pg": "^8.16.0",
-    "prisma": "^7.2.0"
+    "prisma": "^7.2.0",
+    "typescript": "^5.9.3",
+    "eslint": "^9.22.0"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",

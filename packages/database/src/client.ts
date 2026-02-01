@@ -1,15 +1,28 @@
-import { PrismaClient } from "../generated/prisma/client";
-import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from '../generated/prisma/client.js'
+import dotenv from 'dotenv'
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+// Load .env from project root (relative path that works anywhere)
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') })
+
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL is not set in environment variables!')
+}
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,
-});
+})
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+const globalForPrisma = global as unknown as { prisma: PrismaClient }
 
 export const prisma =
-  globalForPrisma.prisma || new PrismaClient({
+  globalForPrisma.prisma ||
+  new PrismaClient({
     adapter,
-  });
+  })
 
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
