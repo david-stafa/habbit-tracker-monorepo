@@ -1,6 +1,7 @@
-import { authClient } from '@habbit-tracker/auth/client'
+
 import { ThemeProvider } from '@habbit-tracker/ui/components/theme-provider'
 import { createRootRoute, HeadContent, Outlet } from '@tanstack/react-router'
+import { authClient } from '~/lib/auth'
 
 export const Route = createRootRoute({
   beforeLoad: async () => {

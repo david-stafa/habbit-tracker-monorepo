@@ -1,4 +1,4 @@
-import { authClient } from '@habbit-tracker/auth/client'
+import { authClient } from '~/lib/auth'
 import { Button } from '@habbit-tracker/ui/components/button'
 import { ModeToggle } from '@habbit-tracker/ui/components/mode-toggle'
 import { NewHabbitDialog } from '~/components/NewHabbitDialog'

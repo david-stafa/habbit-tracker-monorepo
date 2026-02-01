@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Button } from '@habbit-tracker/ui/components/button'
-import { authClient } from '@habbit-tracker/auth/client'
+import { authClient } from '~/lib/auth'
 
 export const Route = createFileRoute('/_authenticated/dashboard')({
   component: Dashboard,
