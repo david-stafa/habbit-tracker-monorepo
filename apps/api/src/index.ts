@@ -3,6 +3,7 @@ import express from 'express'
 import { fromNodeHeaders, toNodeHandler } from '@habbit-tracker/auth'
 import cors from 'cors'
 import { auth } from './auth.js'
+import habbitsRoutes from './routes/habbits.js'
 
 const app = express()
 
@@ -17,16 +18,7 @@ app.use(
 
 app.all('/api/auth/*splat', toNodeHandler(auth))
 
-app.get('/api/me', async (req, res) => {
-  const session = await auth.api.getSession({
-    headers: fromNodeHeaders(req.headers),
-  })
-  return res.json(session)
-})
-
-app.get('/', (req, res) => {
-  res.send(`Hello World! ${BASE_URL}`)
-})
+app.use('/api/habbits', habbitsRoutes)
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)

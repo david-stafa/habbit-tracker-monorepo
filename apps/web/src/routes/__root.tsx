@@ -19,8 +19,7 @@ export const Route = createRootRoute({
 function RootLayout() {
   return (
     <Wrapper>
-      <div className="max-w-3xl">
-        <header>My App</header>
+      <div>
         <Outlet />
       </div>
     </Wrapper>

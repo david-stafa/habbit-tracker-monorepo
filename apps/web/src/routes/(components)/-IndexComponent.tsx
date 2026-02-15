@@ -2,8 +2,14 @@ import { authClient } from '~/lib/auth'
 import { Button } from '@habbit-tracker/ui/components/button'
 import { ModeToggle } from '@habbit-tracker/ui/components/mode-toggle'
 import { NewHabbitDialog } from '~/components/NewHabbitDialog'
+import { useQuery } from '@tanstack/react-query'
+import { fetchHabbits } from '~/queries/habbits/habbitQueries'
+import { useRouteContext } from '@tanstack/react-router'
 
 export const IndexComponent = () => {
+
+  const { user } = useRouteContext({ from: '__root__' })
+
   const handleLogIn = async () => {
     const { data, error } = await authClient.signIn.email({
       email: 'john.doe@example.com',
@@ -28,6 +34,8 @@ export const IndexComponent = () => {
     const { data, error } = await authClient.signOut()
     console.log(data, error)
   }
+
+
 
   return (
     <div>

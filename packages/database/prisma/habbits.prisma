@@ -1,0 +1,23 @@
+model Habbit {
+    id              String           @id @default(cuid())
+    name            String
+    createdAt       DateTime         @default(now())
+    updatedAt       DateTime         @updatedAt
+    habbitInstances HabbitInstance[]
+    userId          String
+    user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("habbit")
+}
+
+model HabbitInstance {
+    id        String   @id @default(cuid())
+    date      DateTime
+    completed Boolean  @default(false)
+    habbitId  String
+    habbit    Habbit   @relation(fields: [habbitId], references: [id], onDelete: Cascade)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("habbitInstance")
+}
