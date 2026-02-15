@@ -1,19 +1,28 @@
-import { createFileRoute, useRouteContext } from '@tanstack/react-router'
 import { Button } from '@habbit-tracker/ui/components/button'
-import { authClient } from '~/lib/auth'
-import { fetchHabbits } from '~/queries/habbits/habbitQueries'
 import { useQuery } from '@tanstack/react-query'
+import {
+  createFileRoute,
+  useNavigate,
+  useRouteContext,
+} from '@tanstack/react-router'
+import { signOut } from '~/lib/auth'
+import { fetchHabbits } from '~/queries/habbits/habbitQueries'
 
 export const Route = createFileRoute('/_authenticated/dashboard')({
   component: Dashboard,
 })
 
 function Dashboard() {
+  const navigate = useNavigate()
   const { user } = useRouteContext({ from: '__root__' })
 
   const handleSignOut = async () => {
-    await authClient.signOut()
-    window.location.href = '/login'
+    const result = await signOut()
+    if (result.success) {
+      navigate({ to: '/dashboard' })
+    } else {
+      console.error(result.error.message)
+    }
   }
 
   const { isPending, isError, data, error } = useQuery({

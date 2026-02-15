@@ -17,18 +17,19 @@ export const signInWithEmail = async (
     email,
     password,
   })
-  if (error) {
-    return {
-      success: false,
-      error: { message: error.message || 'Sign in failed' },
-    }
-  } else if (data) {
-    return { success: true }
-  } else {
-    return { success: false, error: { message: 'Sign in failed' } }
-  }
-}
 
+  return error
+    ? {
+        success: false,
+        error: { message: error.message || 'Sign in failed.' },
+      }
+    : data
+      ? { success: true }
+      : {
+          success: false,
+          error: { message: 'Sign in failed.' },
+        }
+}
 
 export const signUpWithEmail = async (
   name: string,
@@ -42,17 +43,32 @@ export const signUpWithEmail = async (
     password,
     image,
   })
-  if (error) {
-    return {
-      success: false,
-      error: { message: error.message || 'Registration failed' },
-    }
-  } else if (data) {
-    return { success: true }
-  } else {
-    return {
-      success: false,
-      error: { message: 'Registration failed' },
-    }
-  }
+
+  return error
+    ? {
+        success: false,
+        error: { message: error.message || 'Registration out failed.' },
+      }
+    : data
+      ? { success: true }
+      : {
+          success: false,
+          error: { message: 'Registration out failed.' },
+        }
+}
+
+export const signOut = async (): Promise<AuthResult> => {
+  const { data, error } = await authClient.signOut()
+
+  return error
+    ? {
+        success: false,
+        error: { message: error.message || 'Sign out failed.' },
+      }
+    : data
+      ? { success: true }
+      : {
+          success: false,
+          error: { message: 'Sign out failed.' },
+        }
 }
