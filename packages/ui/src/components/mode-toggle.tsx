@@ -12,7 +12,7 @@ import { useTheme } from "@habbit-tracker/ui/components/theme-provider"
 export function ModeToggle() {
   const { setTheme } = useTheme()
 
-  return (
+  return (  
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="secondary" size="icon">

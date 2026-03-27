@@ -48,7 +48,7 @@ export const LogInForm = () => {
         e.stopPropagation()
         form.handleSubmit()
       }}
-      className="flex w-full flex-col gap-4"
+      className="flex w-full max-w-sm flex-col gap-4"
     >
       {formError && <p className="text-destructive">{formError}</p>}
       <form.Field

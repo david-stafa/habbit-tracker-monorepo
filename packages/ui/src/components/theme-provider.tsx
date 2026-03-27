@@ -48,8 +48,6 @@ export function ThemeProvider({
     root.classList.add(theme)
   }, [theme])
 
-  console.log(theme)
-
   const value = {
     theme,
     setTheme: (theme: Theme) => {

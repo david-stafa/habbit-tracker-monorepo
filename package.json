@@ -6,7 +6,7 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --ui tui",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
     "format": "turbo run format",
@@ -16,5 +16,5 @@
     "prettier": "^3.5.3",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@10.29.3"
+  "packageManager": "pnpm@10.32.1"
 }

@@ -14,7 +14,9 @@
   "packageManager": "pnpm@10.27.0",
   "dependencies": {
     "@habbit-tracker/auth": "workspace:*",
+    "@habbit-tracker/contracts": "workspace:*",
     "@habbit-tracker/db": "workspace:*",
+    "@trpc/server": "^11.15.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",

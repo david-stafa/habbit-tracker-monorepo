@@ -1,0 +1,15 @@
+{
+  "name": "@habbit-tracker/contracts",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@habbit-tracker/typescript-config": "workspace:*",
+    "typescript": "^5.9.3"
+  }
+}

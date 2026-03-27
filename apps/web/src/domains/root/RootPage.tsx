@@ -1,4 +1,5 @@
 import { ModeToggle } from '@habbit-tracker/ui/components/mode-toggle'
+import { TypographyH1 } from '@habbit-tracker/ui/components/typography'
 import { ButtonLink } from '~/components/ui/button-link'
 
 export const RootPage = () => {
@@ -16,7 +17,7 @@ export const RootPage = () => {
         </div>
       </nav>
       <div className="flex flex-1 items-center justify-center">
-        <h1 className="text-3xl">Welcome to your new Habbit Tracker</h1>
+        <TypographyH1>Welcome to your new Habbit Tracker</TypographyH1>
       </div>
     </div>
   )
