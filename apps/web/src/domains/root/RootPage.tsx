@@ -3,6 +3,7 @@ import { TypographyH1 } from '@habbit-tracker/ui/components/typography'
 import { ButtonLink } from '~/components/ui/button-link'
 
 export const RootPage = () => {
+  console.log(import.meta.env.VITE_API_URL)
   return (
     <div className="flex h-screen flex-col">
       <nav className="flex justify-between gap-2 p-2">

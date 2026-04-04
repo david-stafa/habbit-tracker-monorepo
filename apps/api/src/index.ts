@@ -1,9 +1,12 @@
-import { BASE_URL, PORT, WEB_URL } from './config.js'
-import express from 'express'
-import { fromNodeHeaders, toNodeHandler } from '@habbit-tracker/auth'
+import { toNodeHandler } from '@habbit-tracker/auth'
+import * as trpcExpress from '@trpc/server/adapters/express'
 import cors from 'cors'
+import express from 'express'
 import { auth } from './auth.js'
+import { PORT, WEB_URL } from './config.js'
+import { appRouter } from './routers/_app.js'
 import habbitsRoutes from './routes/habbits.js'
+import { createContext } from './routers/_context.js'
 
 const app = express()
 
@@ -19,6 +22,14 @@ app.use(
 app.use(express.json())
 
 app.all('/api/auth/*splat', toNodeHandler(auth))
+
+app.use(
+  '/api',
+  trpcExpress.createExpressMiddleware({
+    router: appRouter,
+    createContext,
+  })
+)
 
 app.use('/api/habbits', habbitsRoutes)
 
