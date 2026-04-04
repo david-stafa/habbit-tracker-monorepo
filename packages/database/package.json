@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "tsc",
     "postinstall": "prisma generate --config ./prisma.config.ts",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",

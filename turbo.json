@@ -1,13 +1,15 @@
 {
   "$schema": "https://turborepo.com/schema.json",
+  "envMode": "loose",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^db:generate"],
       "outputs": ["dist/**", "build/**"],
-      "inputs": ["src/**", "package.json", "tsconfig.json"],
+      "inputs": ["src/**", "generated/**", "package.json", "tsconfig.json"],
       "env": ["DATABASE_URL"]
     },
     "dev": {
+      "dependsOn": ["^db:generate"],
       "cache": false,
       "persistent": true
     },
@@ -25,6 +27,8 @@
       "dependsOn": ["^format:check"]
     },
     "db:generate": {
+      "dependsOn": ["^db:generate"],
+      "outputs": ["generated/**"],
       "cache": false
     },
     "db:migrate": {

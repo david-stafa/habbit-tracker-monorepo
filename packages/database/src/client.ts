@@ -1,13 +1,17 @@
 import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from '../generated/prisma/client.js'
+import { PrismaClient } from '../generated/prisma/client'
 import dotenv from 'dotenv'
+import { existsSync } from 'node:fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// Load .env from project root (relative path that works anywhere)
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') })
+const envFile = [
+  path.resolve(__dirname, '../../../.env'),
+  path.resolve(__dirname, '../../../../.env'),
+].find((p) => existsSync(p))
+if (envFile) dotenv.config({ path: envFile })
 
 if (!process.env.DATABASE_URL) {
   throw new Error('DATABASE_URL is not set in environment variables!')

@@ -2,11 +2,11 @@ import { toNodeHandler } from '@habbit-tracker/auth'
 import * as trpcExpress from '@trpc/server/adapters/express'
 import cors from 'cors'
 import express from 'express'
-import { auth } from './auth.js'
-import { PORT, WEB_URL } from './config.js'
-import { appRouter } from './routers/_app.js'
-import habbitsRoutes from './routes/habbits.js'
-import { createContext } from './routers/_context.js'
+import { auth } from './auth'
+import { PORT, WEB_URL } from './config'
+import { appRouter } from './routers/_app'
+import habbitsRoutes from './routes/habbits'
+import { createContext } from './routers/_context'
 
 const app = express()
 
