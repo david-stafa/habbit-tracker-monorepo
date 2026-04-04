@@ -32,7 +32,7 @@ export const HabbitInstancesOverview = () => {
     },
   })
 
-  // if (isPending) return <HabbitOverviwSkeleton />  
+  if (isPending) return <HabbitOverviwSkeleton />  
 
   return (
     <div className="bg-card text-card-foreground border-border mt-5 w-fit rounded-xl border p-4">

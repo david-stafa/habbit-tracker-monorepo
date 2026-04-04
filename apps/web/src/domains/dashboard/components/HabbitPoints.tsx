@@ -9,7 +9,7 @@ import { getAllHabbitPointsQuery } from '~/queries/habbits/habbitQueries'
 export const HabbitPoints = () => {
   const { user } = useRouteContext({ from: '__root__' })
 
-  const { isPending, isError, data, error } = useQuery({
+  const { isPending, isError, data } = useQuery({
     queryKey: ['habbits', 'allHabbitPoints', user?.id],
     queryFn: () => getAllHabbitPointsQuery(user!.id),
   })
