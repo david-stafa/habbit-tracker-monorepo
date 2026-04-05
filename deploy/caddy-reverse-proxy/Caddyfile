@@ -1,0 +1,23 @@
+# Railway / Docker reverse proxy: one public URL → split traffic.
+#
+# Required env:
+#   PORT              — Railway sets this; Caddy listens on it.
+#   CADDY_BACKEND     — e.g. http://your-api.railway.internal:3001
+#   CADDY_FRONTEND    — e.g. http://your-web.railway.internal:3000
+#
+# Rebuild the web app so the browser talks to the same host, e.g.:
+#   VITE_API_URL=     (empty → relative `/api`)  OR full public Caddy URL
+#
+{
+	admin off
+}
+
+:{$PORT} {
+	@api path /api*
+	handle @api {
+		reverse_proxy {$CADDY_BACKEND}
+	}
+	handle {
+		reverse_proxy {$CADDY_FRONTEND}
+	}
+}
