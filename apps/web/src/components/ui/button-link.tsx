@@ -3,7 +3,9 @@ import { Link, type LinkProps } from '@tanstack/react-router'
 import { Button } from '@habbit-tracker/ui/components/button'
 
 type ButtonLinkProps = LinkProps &
-  Partial<Pick<ComponentProps<typeof Button>, 'variant' | 'size' | 'className'>> & {
+  Partial<
+    Pick<ComponentProps<typeof Button>, 'variant' | 'size' | 'className'>
+  > & {
     children: ReactNode
   }
 

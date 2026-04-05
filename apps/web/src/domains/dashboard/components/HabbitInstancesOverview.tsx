@@ -32,14 +32,30 @@ export const HabbitInstancesOverview = () => {
     },
   })
 
-  if (isPending) return <HabbitOverviwSkeleton />  
+  if (isPending) return <HabbitOverviwSkeleton />
 
   return (
     <div className="bg-card text-card-foreground border-border mt-5 w-fit rounded-xl border p-4">
       <div className="flex items-center gap-2">
-        <Button onClick={() => setSelectedDay(new Date(selectedDay.setDate(selectedDay.getDate() - 1)))}>Yesterday</Button>
+        <Button
+          onClick={() =>
+            setSelectedDay(
+              new Date(selectedDay.setDate(selectedDay.getDate() - 1))
+            )
+          }
+        >
+          Yesterday
+        </Button>
         <Button onClick={() => setSelectedDay(new Date())}>Today</Button>
-        <Button onClick={() => setSelectedDay(new Date(selectedDay.setDate(selectedDay.getDate() + 1)))}>Tomorrow</Button>
+        <Button
+          onClick={() =>
+            setSelectedDay(
+              new Date(selectedDay.setDate(selectedDay.getDate() + 1))
+            )
+          }
+        >
+          Tomorrow
+        </Button>
       </div>
       <TypographyH3 className="mb-2">Todays habbits:</TypographyH3>
       <div className="flex flex-col gap-2">

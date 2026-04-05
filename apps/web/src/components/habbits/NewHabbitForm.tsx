@@ -59,12 +59,12 @@ export const NewHabbitForm = ({ onSuccess }: NewHabbitFormProps) => {
         e.stopPropagation()
         form.handleSubmit()
       }}
-      className='flex flex-col gap-4'
+      className="flex flex-col gap-4"
     >
       <form.Field
         name="name"
         children={(field) => (
-          <div className='flex flex-col gap-2'>
+          <div className="flex flex-col gap-2">
             <Label htmlFor="name">Habbit Name</Label>
             <Input
               id="name"
@@ -79,7 +79,7 @@ export const NewHabbitForm = ({ onSuccess }: NewHabbitFormProps) => {
       <form.Field
         name="points"
         children={(field) => (
-          <div className='flex flex-col gap-2'>
+          <div className="flex flex-col gap-2">
             <Label htmlFor="points">Reward points</Label>
             <Input
               id="points"
@@ -97,7 +97,11 @@ export const NewHabbitForm = ({ onSuccess }: NewHabbitFormProps) => {
       <form.Subscribe
         selector={(state) => [state.canSubmit, state.isSubmitting]}
         children={([canSubmit, isSubmitting]) => (
-          <Button type="submit" disabled={!canSubmit} className='w-fit self-end'>
+          <Button
+            type="submit"
+            disabled={!canSubmit}
+            className="w-fit self-end"
+          >
             {isSubmitting ? '...' : 'Create habbit'}
           </Button>
         )}

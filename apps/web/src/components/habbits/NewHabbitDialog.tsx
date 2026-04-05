@@ -5,7 +5,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from '@habbit-tracker/ui/components/dialog'
 import { PlusIcon } from '@habbit-tracker/ui/icons'
 import { useState } from 'react'

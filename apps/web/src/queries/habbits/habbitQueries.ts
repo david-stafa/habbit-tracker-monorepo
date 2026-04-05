@@ -9,12 +9,22 @@ const instance = axios.create({
 })
 
 export const getHabbitsQuery = async (userId: string) => {
-  const res = await instance.get<Habbit[]>('/api/habbits', { params: { userId } })
+  const res = await instance.get<Habbit[]>('/api/habbits', {
+    params: { userId },
+  })
   return res.data
 }
 
-export const createHabbitQuery = async (name: string, userId: string, points: number) => {
-  const res = await instance.post<Habbit>('/api/habbits', { name, userId, points })
+export const createHabbitQuery = async (
+  name: string,
+  userId: string,
+  points: number
+) => {
+  const res = await instance.post<Habbit>('/api/habbits', {
+    name,
+    userId,
+    points,
+  })
   return res.data
 }
 
@@ -52,7 +62,6 @@ export const postToggleHabbitInstanceCompleted = async (
 
   return res.data
 }
-
 
 export const getAllHabbitPointsQuery = async (userId: string) => {
   const res = await instance.get<number>('/api/habbits/allHabbitPoints', {
