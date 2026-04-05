@@ -2,6 +2,13 @@
 // npm install --save-dev prisma dotenv
 import 'dotenv/config'
 import { defineConfig, env } from 'prisma/config';
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { config } from 'dotenv'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+// pnpm/turbo run this package from `packages/database`; load repo-root `.env`
+config({ path: path.resolve(__dirname, '../../.env') })
 
 export default defineConfig({
   schema: 'prisma',
