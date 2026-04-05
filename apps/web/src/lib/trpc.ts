@@ -5,8 +5,9 @@ import type { AppRouter } from '@habbit-tracker/api/trpc'
 
 export const queryClient = new QueryClient()
 
-const trpcUrl =
+const apiOrigin =
   (import.meta.env.VITE_API_URL as string) || 'http://localhost:3001'
+const trpcUrl = `${apiOrigin.replace(/\/$/, '')}/api/trpc`
 
 const trpcClient = createTRPCClient<AppRouter>({
   links: [
