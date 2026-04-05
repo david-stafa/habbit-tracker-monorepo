@@ -1,8 +1,11 @@
 import axios from 'axios'
 import type { Habbit, HabbitInstance } from '@habbit-tracker/contracts'
 
+const apiBaseUrl =
+  (import.meta.env.VITE_API_URL as string) || 'http://localhost:3001'
+
 const instance = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: apiBaseUrl,
 })
 
 export const getHabbitsQuery = async (userId: string) => {
@@ -27,7 +30,7 @@ export const getDailyHabbitInstancesQuery = async (
   day: Date
 ) => {
   const res = await instance.get<HabbitInstance[]>(
-    'api/habbits/dailyHabbitInstances',
+    '/api/habbits/dailyHabbitInstances',
     {
       params: { userId, day },
     }
@@ -40,7 +43,7 @@ export const postToggleHabbitInstanceCompleted = async (
   instanceId: string
 ) => {
   const res = await instance.post<HabbitInstance[]>(
-    'api/habbits/dailyHabbitInstances/toggleCompleted',
+    '/api/habbits/dailyHabbitInstances/toggleCompleted',
     {
       completed,
       instanceId,
