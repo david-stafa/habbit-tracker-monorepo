@@ -1,23 +1,27 @@
 # Railway / Docker reverse proxy: one public URL → split traffic.
 #
+# Railway terminates TLS at the edge and forwards HTTP to this service on PORT.
+# Do not use https:// as the site address here — that enables ACME/Let's Encrypt
+# inside the container and HTTP-01 validation will fail.
+#
 # Required env:
-#   PORT              — Railway sets this; Caddy listens on it.
-#   CADDY_BACKEND     — e.g. http://your-api.railway.internal:3001
-#   CADDY_FRONTEND    — e.g. http://your-web.railway.internal:3000
+#   PORT        — Railway sets this (e.g. 8080).
+#   API_URL     — full upstream URL with scheme, e.g. http://backend.railway.internal:3001
+#   CLIENT_URL  — full upstream URL with scheme, e.g. http://frontend.railway.internal:3000
 #
-# Rebuild the web app so the browser talks to the same host, e.g.:
-#   VITE_API_URL=     (empty → relative `/api`)  OR full public Caddy URL
+# Example (Railway reference variables; add ports if your services use non-default):
+#   API_URL=http://${{backend.RAILWAY_PRIVATE_DOMAIN}}
+#   CLIENT_URL=http://${{frontend.RAILWAY_PRIVATE_DOMAIN}}
 #
+# Rebuild the web app so the browser uses relative `/api` or your public Railway URL.
 {
 	admin off
+	servers {
+		trusted_proxies static private_ranges
+	}
 }
 
 :{$PORT} {
-	@api path /api*
-	handle @api {
-		reverse_proxy {$CADDY_BACKEND}
-	}
-	handle {
-		reverse_proxy {$CADDY_FRONTEND}
-	}
+	reverse_proxy /api/* {$API_URL}
+	reverse_proxy {$CLIENT_URL}
 }
