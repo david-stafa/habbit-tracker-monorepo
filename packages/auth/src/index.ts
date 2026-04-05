@@ -4,17 +4,21 @@ import { prisma } from '@habbit-tracker/db'
 
 interface AuthOptions {
   trustedOrigins: string[]
+  /** e.g. https://your-caddy.up.railway.app — required behind a reverse proxy for cookies/links */
+  apiURL: string
 }
 
-export const createAuth = ({trustedOrigins}: AuthOptions) => betterAuth({
-  database: prismaAdapter(prisma, {
-    provider: 'postgresql',
-  }),
-  emailAndPassword: {
-    enabled: true,
-  },
-  trustedOrigins: trustedOrigins,
-})
+export const createAuth = ({ trustedOrigins, apiURL }: AuthOptions) =>
+  betterAuth({
+    apiURL,
+    database: prismaAdapter(prisma, {
+      provider: 'postgresql',
+    }),
+    emailAndPassword: {
+      enabled: true,
+    },
+    trustedOrigins,
+  })
 
 // Export types for use in client and server
 // export type Session = typeof auth.$Infer.Session

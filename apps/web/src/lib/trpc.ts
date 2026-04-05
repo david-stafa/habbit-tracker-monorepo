@@ -1,15 +1,28 @@
-import { QueryClient } from '@tanstack/react-query';
-import { createTRPCClient, httpBatchLink } from '@trpc/client';
-import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query';
-import type { AppRouter } from '@habbit-tracker/api/trpc';
- 
-export const queryClient = new QueryClient();
- 
+import { QueryClient } from '@tanstack/react-query'
+import { createTRPCClient, httpBatchLink } from '@trpc/client'
+import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query'
+import type { AppRouter } from '@habbit-tracker/api/trpc'
+
+export const queryClient = new QueryClient()
+
+const trpcUrl =
+  (import.meta.env.VITE_API_URL as string) || 'http://localhost:3001'
+
 const trpcClient = createTRPCClient<AppRouter>({
-  links: [httpBatchLink({ url: 'http://localhost:2022' })],
-});
- 
+  links: [
+    httpBatchLink({
+      url: trpcUrl,
+      fetch(url, options) {
+        return fetch(url, {
+          ...options,
+          credentials: 'include',
+        })
+      },
+    }),
+  ],
+})
+
 export const trpc = createTRPCOptionsProxy<AppRouter>({
   client: trpcClient,
   queryClient,
-});
+})

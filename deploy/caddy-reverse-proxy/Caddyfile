@@ -6,12 +6,15 @@
 #
 # Required env:
 #   PORT        — Railway sets this (e.g. 8080).
-#   API_URL     — full upstream URL with scheme, e.g. http://backend.railway.internal:3001
-#   CLIENT_URL  — full upstream URL with scheme, e.g. http://frontend.railway.internal:3000
+#   API_URL     — full upstream URL with scheme AND port (http://host alone → port 80 → refused).
+#   CLIENT_URL  — same, e.g. http://frontend.railway.internal:3000
 #
-# Example (Railway reference variables; add ports if your services use non-default):
-#   API_URL=http://${{backend.RAILWAY_PRIVATE_DOMAIN}}
-#   CLIENT_URL=http://${{frontend.RAILWAY_PRIVATE_DOMAIN}}
+# Railway: `http://host` without a port uses 80 — your apps listen on each service’s PORT.
+# Use an explicit port, e.g. :3000, or reference variables (see Railway private networking docs).
+# Note: ${{service.PORT}} only works if that service has a *manually defined* PORT variable
+# for references; the runtime-injected PORT is not available to other services that way.
+#   API_URL=http://${{backend.RAILWAY_PRIVATE_DOMAIN}}:3001
+#   CLIENT_URL=http://${{frontend.RAILWAY_PRIVATE_DOMAIN}}:3000
 #
 # Rebuild the web app so the browser uses relative `/api` or your public Railway URL.
 {

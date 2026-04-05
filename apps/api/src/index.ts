@@ -10,6 +10,10 @@ import { createContext } from './routers/_context'
 
 const app = express()
 
+// Railway/Caddy terminate TLS; Express must trust X-Forwarded-* so cookies stay Secure
+// and auth libraries see the public https:// origin.
+app.set('trust proxy', true)
+
 // Configure CORS middleware
 app.use(
   cors({
