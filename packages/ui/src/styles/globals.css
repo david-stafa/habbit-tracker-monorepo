@@ -44,6 +44,7 @@
   --sidebar-ring: oklch(0.841 0.238 128.85);
 }
 
+/* If --background changes, update apps/web/index.html critical <style> block */
 .dark {
   --background: oklch(0.141 0.005 285.823);
   --foreground: oklch(0.985 0 0);
