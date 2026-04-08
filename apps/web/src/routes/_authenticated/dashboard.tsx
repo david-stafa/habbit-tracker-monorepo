@@ -6,11 +6,12 @@ import {
   useNavigate,
   useRouteContext,
 } from '@tanstack/react-router'
+import { useState } from 'react'
 import { NewHabbitDialog } from '~/components/habbits/NewHabbitDialog'
 import { HabbitInstancesOverview } from '~/domains/dashboard/components/HabbitInstancesOverview'
-import { HabbitsOverview } from '~/domains/dashboard/components/HabbitsOverview'
-import { signOut } from '~/lib/auth'
 import { HabbitPoints } from '~/domains/dashboard/components/HabbitPoints'
+import { HabbitsOverview } from '~/domains/dashboard/components/HabbitsOverview'
+import { authClient } from '~/lib/auth'
 
 export const Route = createFileRoute('/_authenticated/dashboard')({
   component: Dashboard,
@@ -19,14 +20,22 @@ export const Route = createFileRoute('/_authenticated/dashboard')({
 function Dashboard() {
   const navigate = useNavigate()
   const { user } = useRouteContext({ from: '__root__' })
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSignOut = async () => {
-    const result = await signOut()
-    if (result.success) {
-      navigate({ to: '/dashboard' })
-    } else {
-      console.error(result.error.message)
-    }
+    await authClient.signOut({
+      fetchOptions: {
+        onRequest: () => setIsLoading(true),
+        onSuccess: () => {
+          setIsLoading(false)
+          navigate({ to: '/login' })
+        },
+        onError: (ctx) => {
+          setIsLoading(false)
+          console.error(ctx.error.message)
+        },
+      },
+    })
   }
 
   return (
@@ -35,8 +44,12 @@ function Dashboard() {
         <TypographyH2>Welcome, {user?.name}.</TypographyH2>
         <div className="flex items-center justify-center gap-1">
           <ModeToggle />
-          <Button onClick={handleSignOut} variant="secondary">
-            Sign Out
+          <Button
+            onClick={handleSignOut}
+            variant="secondary"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Signing out…' : 'Sign Out'}
           </Button>
         </div>
       </div>

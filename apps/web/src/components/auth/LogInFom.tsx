@@ -2,11 +2,11 @@ import { Button } from '@habbit-tracker/ui/components/button'
 import { Input } from '@habbit-tracker/ui/components/input'
 import { Label } from '@habbit-tracker/ui/components/label'
 import { useForm } from '@tanstack/react-form'
+import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { z } from 'zod'
-import { signInWithEmail } from '~/lib/auth'
+import { authClient } from '~/lib/auth'
 import { FieldInfo } from '../form/FieldInfo'
-import { useState } from 'react'
 
 const userSchema = z.object({
   email: z.email(),
@@ -31,13 +31,16 @@ export const LogInForm = () => {
       onSubmit: userSchema,
     },
     onSubmit: async ({ value }) => {
-      const logIn = await signInWithEmail(value.email, value.password)
-
-      if (logIn.success) {
-        navigate({ to: '/dashboard' })
-      } else {
-        setFormError(logIn.error.message)
-      }
+      await authClient.signIn.email({
+        email: value.email,
+        password: value.password,
+        fetchOptions: {
+          onSuccess: () => navigate({ to: '/dashboard' }),
+          onError: (ctx) => {
+            setFormError(ctx.error.message)
+          },
+        },
+      })
     },
   })
 
