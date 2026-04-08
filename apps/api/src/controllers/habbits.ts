@@ -36,6 +36,7 @@ export const getDailyHabbitInstances = async (userId: string, day: Date) => {
       habbit: {
         select: {
           name: true,
+          description: true,
         },
       },
     },
@@ -72,13 +73,15 @@ export const toggleCompletedInHabbitInstance = async (
 export const createHabbitWithInstances = async (
   name: string,
   userId: string,
-  points: number
+  points: number,
+  description?: string
 ) => {
   const habbit = await prisma.habbit.create({
     data: {
       name: name,
       userId: userId,
       points: points,
+      description: description,
     },
   })
 

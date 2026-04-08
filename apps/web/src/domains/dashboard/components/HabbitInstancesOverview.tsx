@@ -63,6 +63,7 @@ export const HabbitInstancesOverview = () => {
           <SingleHabbitUi
             key={instance.id}
             name={instance.habbit.name}
+            description={instance.habbit.description}
             completed={instance.completed}
             onClick={() =>
               toggleCompleted({

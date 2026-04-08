@@ -1,6 +1,7 @@
 model Habbit {
   id              String           @id @default(cuid())
   name            String
+  description     String?
   points          Int              @default(1)
   habbitInstances HabbitInstance[]
   userId          String

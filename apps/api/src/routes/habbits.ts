@@ -35,12 +35,15 @@ router.post('/dailyHabbitInstances/toggleCompleted', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  const { name, userId, points } = CreateHabbitBodySchema.parse(req.body)
+  const { name, userId, points, description } = CreateHabbitBodySchema.parse(
+    req.body
+  )
 
   const habbitWithInstances = await createHabbitWithInstances(
     name,
     userId,
-    points
+    points,
+    description
   )
 
   res.json(habbitWithInstances)

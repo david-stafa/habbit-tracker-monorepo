@@ -18,10 +18,12 @@ export const getHabbitsQuery = async (userId: string) => {
 export const createHabbitQuery = async (
   name: string,
   userId: string,
-  points: number
+  points: number,
+  description?: string
 ) => {
   const res = await instance.post<Habbit>('/api/habbits', {
     name,
+    description,
     userId,
     points,
   })

@@ -10,6 +10,7 @@ export const CreateHabbitBodySchema = z.object({
   name: z.string().min(1),
   userId: z.string(),
   points: z.number().min(1),
+  description: z.string().optional(),
 });
 
 export const DeleteHabbitQuerySchema = z.object({
@@ -45,7 +46,7 @@ export const HabbitInstanceSchema = z.object({
   id: z.string(),
   completed: z.boolean(),
   date: z.coerce.date(),
-  habbit: z.object({ name: z.string() }),
+  habbit: z.object({ name: z.string(), description: z.string().optional() }),
 });
 
 // ---- Inferred types (used on both sides) ----

@@ -10,6 +10,7 @@ import { useRouteContext } from '@tanstack/react-router'
 
 const habbitSchema = z.object({
   name: z.string(),
+  description: z.string().optional(),
   userId: z.string(),
   points: z.number().min(1).max(10),
 })
@@ -32,7 +33,7 @@ export const NewHabbitForm = ({ onSuccess }: NewHabbitFormProps) => {
 
   const { mutate: createHabbit } = useMutation({
     mutationFn: (value: HabbitType) =>
-      createHabbitQuery(value.name, value.userId, value.points),
+      createHabbitQuery(value.name, value.userId, value.points, value.description),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['habbits'] }) // refetch list
       onSuccess?.()
@@ -68,6 +69,21 @@ export const NewHabbitForm = ({ onSuccess }: NewHabbitFormProps) => {
             <Label htmlFor="name">Habbit Name</Label>
             <Input
               id="name"
+              value={field.state.value}
+              onChange={(e) => field.handleChange(e.target.value)}
+              onBlur={field.handleBlur}
+            />
+            <FieldInfo field={field} />
+          </div>
+        )}
+      />
+      <form.Field
+        name="description"
+        children={(field) => (
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="name">Habbit Description</Label>
+            <Input
+              id="description"
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
               onBlur={field.handleBlur}
