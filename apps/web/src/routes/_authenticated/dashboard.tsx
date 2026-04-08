@@ -28,7 +28,7 @@ function Dashboard() {
         onRequest: () => setIsLoading(true),
         onSuccess: () => {
           setIsLoading(false)
-          navigate({ to: '/login' })
+          navigate({ to: '/' })
         },
         onError: (ctx) => {
           setIsLoading(false)
