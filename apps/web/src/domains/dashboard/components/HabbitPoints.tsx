@@ -18,7 +18,7 @@ export const HabbitPoints = () => {
   if (isError) return <div>Something went wrong</div>
 
   return (
-    <div>
+    <div className="bg-card text-card-foreground border-border mt-5 w-64 rounded-xl border p-4">
       <TypographyH3>Habbit Points</TypographyH3>
       <TypographyP>You have {data} points</TypographyP>
     </div>
