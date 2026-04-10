@@ -35,7 +35,7 @@ export const HabbitInstancesOverview = () => {
 
   return (
     <div className="bg-card text-card-foreground border-border mt-5 w-full rounded-xl border p-2 md:w-fit md:p-4">
-      <div className="mb-2 flex items-center justify-between gap-2">
+      <div className="mb-4 flex items-center justify-between gap-2">
         <Button
           variant="secondary"
           onClick={() =>

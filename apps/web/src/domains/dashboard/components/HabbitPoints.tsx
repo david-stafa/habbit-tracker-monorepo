@@ -19,7 +19,7 @@ export const HabbitPoints = () => {
 
   return (
     <div className="bg-card text-card-foreground border-border w-full rounded-xl border p-4 md:w-64">
-      <TypographyH4>Habbit Points</TypographyH4>
+      <TypographyH4>Habit Points</TypographyH4>
       <TypographyP>
         You have {data} point{data === 1 ? '' : 's'}
       </TypographyP>

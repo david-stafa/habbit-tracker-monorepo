@@ -66,8 +66,8 @@ export const NewHabbitForm = ({ onSuccess }: NewHabbitFormProps) => {
         name="name"
         children={(field) => (
           <div className="flex flex-col gap-2">
-            <Label htmlFor="name">Habbit Name</Label>
-            <Input
+            <Label htmlFor="name">Habit Name</Label>
+            <Input  
               id="name"
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
@@ -81,7 +81,7 @@ export const NewHabbitForm = ({ onSuccess }: NewHabbitFormProps) => {
         name="description"
         children={(field) => (
           <div className="flex flex-col gap-2">
-            <Label htmlFor="name">Habbit Description</Label>
+            <Label htmlFor="name">Habit Description</Label>
             <Input
               id="description"
               value={field.state.value}
@@ -118,7 +118,7 @@ export const NewHabbitForm = ({ onSuccess }: NewHabbitFormProps) => {
             disabled={!canSubmit}
             className="w-fit self-end"
           >
-            {isSubmitting ? '...' : 'Create habbit'}
+            {isSubmitting ? '...' : 'Create habit'}
           </Button>
         )}
       />

@@ -18,16 +18,16 @@ export function NewHabbitDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <PlusIcon /> Add New Habbit
+          <PlusIcon /> Add New Habit
         </Button>
       </DialogTrigger>
       {/* CONTENT */}
       <DialogContent className="sm:max-w-[425px]">
         {/* HEADER */}
         <DialogHeader>
-          <DialogTitle>Add New Habbit</DialogTitle>
+          <DialogTitle>Add New Habit</DialogTitle>
           <DialogDescription>
-            Add a new habbit to your tracker.
+            Add a new habit to your tracker.
           </DialogDescription>
         </DialogHeader>
         {/* NEW HABBIT FORM */}
