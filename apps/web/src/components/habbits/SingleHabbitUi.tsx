@@ -16,16 +16,16 @@ export const SingleHabbitUi = ({
 }: iHabbit) => {
   const variant = completed
     ? {
-        style: 'border-amber-700 bg-amber-700 text-amber-100',
-        textColor: 'text-amber-100',
+        style: 'border-primary bg-primary text-primary-foreground',
+        textColor: 'text-primary-foreground',
         icon: (
-          <CircleCheckIcon className="animate-pop-check size-7 text-amber-100" />
+          <CircleCheckIcon className="animate-pop-check size-7 text-primary-foreground" />
         ),
       }
     : {
-        style: 'border-amber-700 bg-amber-50',
-        textColor: 'text-amber-700',
-        icon: <CircleIcon className="size-7 text-amber-700" />,
+        style: 'border-primary bg-primary/10',
+        textColor: 'text-primary',
+        icon: <CircleIcon className="size-7 text-primary" />,
       }
   return (
     <div className="flex flex-col gap-2">

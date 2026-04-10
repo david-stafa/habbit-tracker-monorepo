@@ -1,5 +1,5 @@
 import {
-  TypographyH3,
+  TypographyH4,
   TypographyP,
 } from '@habbit-tracker/ui/components/typography'
 import { useQuery } from '@tanstack/react-query'
@@ -18,9 +18,11 @@ export const HabbitPoints = () => {
   if (isError) return <div>Something went wrong</div>
 
   return (
-    <div className="bg-card text-card-foreground border-border mt-5 w-64 rounded-xl border p-4">
-      <TypographyH3>Habbit Points</TypographyH3>
-      <TypographyP>You have {data} points</TypographyP>
+    <div className="bg-card text-card-foreground border-border w-full rounded-xl border p-4 md:w-64">
+      <TypographyH4>Habbit Points</TypographyH4>
+      <TypographyP>
+        You have {data} point{data === 1 ? '' : 's'}
+      </TypographyP>
     </div>
   )
 }

@@ -30,7 +30,7 @@ export const HabbitsOverview = () => {
   if (isPending) return <HabbitOverviwSkeleton />
 
   return (
-    <div className="bg-card text-card-foreground border-border mt-5 w-64 rounded-xl border p-4">
+    <div className="bg-card text-card-foreground border-border mt-5 w-full rounded-xl border p-2 md:p-4 md:w-64">
       <TypographyH3 className="mb-2">Habbits overview:</TypographyH3>
       {data?.map((habbit) => (
         <div

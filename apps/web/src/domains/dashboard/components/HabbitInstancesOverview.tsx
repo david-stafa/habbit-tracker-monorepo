@@ -1,5 +1,6 @@
 import { Button } from '@habbit-tracker/ui/components/button'
-import { TypographyH3 } from '@habbit-tracker/ui/components/typography'
+import { TypographyP } from '@habbit-tracker/ui/components/typography'
+import { ChevronLeftIcon, ChevronRightIcon } from '@habbit-tracker/ui/icons'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouteContext } from '@tanstack/react-router'
 import { useState } from 'react'
@@ -14,7 +15,7 @@ export const HabbitInstancesOverview = () => {
   const [selectedDay, setSelectedDay] = useState<Date>(new Date())
   const queryClient = useQueryClient()
 
-  const { isPending, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ['habbits', user?.id, selectedDay],
     queryFn: () => getDailyHabbitInstancesQuery(user!.id, selectedDay),
   })
@@ -32,32 +33,39 @@ export const HabbitInstancesOverview = () => {
     },
   })
 
-  if (isPending) return <HabbitOverviwSkeleton />
-
   return (
-    <div className="bg-card text-card-foreground border-border mt-5 w-fit rounded-xl border p-4">
-      <div className="flex items-center gap-2">
+    <div className="bg-card text-card-foreground border-border mt-5 w-full rounded-xl border p-2 md:w-fit md:p-4">
+      <div className="mb-2 flex items-center justify-between gap-2">
         <Button
+          variant="secondary"
           onClick={() =>
             setSelectedDay(
               new Date(selectedDay.setDate(selectedDay.getDate() - 1))
             )
           }
+          className="rounded-lg"
         >
-          Yesterday
+          <ChevronLeftIcon />
         </Button>
-        <Button onClick={() => setSelectedDay(new Date())}>Today</Button>
+        <TypographyP>
+          {selectedDay.toLocaleDateString('en-US', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+          })}
+        </TypographyP>
         <Button
+          variant="secondary"
           onClick={() =>
             setSelectedDay(
               new Date(selectedDay.setDate(selectedDay.getDate() + 1))
             )
           }
+          className="rounded-lg"
         >
-          Tomorrow
+          <ChevronRightIcon />
         </Button>
       </div>
-      <TypographyH3 className="mb-2">Todays habbits:</TypographyH3>
       <div className="flex flex-col gap-2">
         {data?.map((instance) => (
           <SingleHabbitUi
@@ -73,13 +81,12 @@ export const HabbitInstancesOverview = () => {
             }
           />
         ))}
+        {data?.length === 0 && (
+          <TypographyP className="py-4 text-center">
+            No habbit instances for this day
+          </TypographyP>
+        )}
       </div>
     </div>
-  )
-}
-
-const HabbitOverviwSkeleton = () => {
-  return (
-    <div className="mt-5 h-60 w-40 animate-pulse rounded-xl bg-slate-500" />
   )
 }

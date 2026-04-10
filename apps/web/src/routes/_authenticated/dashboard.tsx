@@ -10,7 +10,7 @@ import { useState } from 'react'
 import { NewHabbitDialog } from '~/components/habbits/NewHabbitDialog'
 import { HabbitInstancesOverview } from '~/domains/dashboard/components/HabbitInstancesOverview'
 import { HabbitPoints } from '~/domains/dashboard/components/HabbitPoints'
-import { HabbitsOverview } from '~/domains/dashboard/components/HabbitsOverview'
+// import { HabbitsOverview } from '~/domains/dashboard/components/HabbitsOverview'
 import { authClient } from '~/lib/auth'
 
 export const Route = createFileRoute('/_authenticated/dashboard')({
@@ -39,24 +39,24 @@ function Dashboard() {
   }
 
   return (
-    <div className="p-8">
-      <div className="flex h-fit items-start justify-between">
-        <TypographyH2>Welcome, {user?.name}.</TypographyH2>
-        <div className="flex items-center justify-center gap-1">
-          <ModeToggle />
-          <Button
-            onClick={handleSignOut}
-            variant="secondary"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Signing out…' : 'Sign Out'}
-          </Button>
-        </div>
+    <div className="p-4 md:p-8">
+      <div className="flex items-center justify-end gap-1 mb-4">
+        <ModeToggle />
+        <Button
+          onClick={handleSignOut}
+          variant="secondary"
+          disabled={isLoading}
+        >
+          {isLoading ? 'Signing out…' : 'Sign Out'}
+        </Button>
       </div>
-      <NewHabbitDialog />
-      <div className="flex items-start gap-2">
+      <div className="flex flex-col md:flex-row h-fit items-start justify-between">
+        <TypographyH2>Welcome, {user?.name}.</TypographyH2>
+        <NewHabbitDialog />
+      </div>
+      <div className="flex flex-col items-start gap-2 md:flex-row">
         <HabbitInstancesOverview />
-        <HabbitsOverview />
+        {/* <HabbitsOverview /> */}
         <HabbitPoints />
       </div>
     </div>
