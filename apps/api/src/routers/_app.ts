@@ -1,8 +1,8 @@
 import { publicProcedure, router } from './_context'
-import { habbitRouter } from './habbit/habbit'
+import { habitRouter } from './habit/habit'
 
 export const appRouter = router({
-  habbit: habbitRouter,
+  habit: habitRouter,
   greeting: publicProcedure.query(() => 'hello tRPC v11!'),
 })
 

@@ -1,4 +1,4 @@
-import { TypographyH2, TypographyP } from '@habbit-tracker/ui/components/typography'
+import { TypographyH2, TypographyP } from '@habit-tracker/ui/components/typography'
 import { Link } from '@tanstack/react-router'
 import { RegisterForm } from '~/components/auth/RegisterForm'
 

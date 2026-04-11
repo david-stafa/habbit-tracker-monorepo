@@ -1,5 +1,5 @@
 {
-  "name": "@habbit-tracker/ui",
+  "name": "@habit-tracker/ui",
   "version": "0.0.0",
   "type": "module",
   "private": true,
@@ -23,8 +23,8 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@habbit-tracker/eslint-config": "workspace:*",
-    "@habbit-tracker/typescript-config": "workspace:*",
+    "@habit-tracker/eslint-config": "workspace:*",
+    "@habit-tracker/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "^4.1.11",
     "@turbo/gen": "^2.5.5",
     "@types/node": "^20.19.9",

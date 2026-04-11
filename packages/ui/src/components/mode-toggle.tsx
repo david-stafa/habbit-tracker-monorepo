@@ -1,18 +1,19 @@
-import { Moon, Sun } from "lucide-react"
+import { Moon, Sun } from 'lucide-react'
 
-import { Button } from "@habbit-tracker/ui/components/button"
+import { Button } from '@habit-tracker/ui/components/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@habbit-tracker/ui/components/dropdown-menu"
-import { useTheme } from "@habbit-tracker/ui/components/theme-provider"
+} from '@habit-tracker/ui/components/dropdown-menu'
+import { useTheme } from '@habit-tracker/ui/components/theme-provider'
+import { cn } from '../lib/utils'
 
 export function ModeToggle() {
-  const { setTheme } = useTheme()
+  const { setTheme, theme } = useTheme()
 
-  return (  
+  return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="secondary" size="icon">
@@ -22,13 +23,26 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem
+          onClick={() => setTheme('light')}
+          className={cn(
+            theme === 'light' && 'bg-accent text-accent-foreground'
+          )}
+        >
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem
+          onClick={() => setTheme('dark')}
+          className={cn(theme === 'dark' && 'bg-accent text-accent-foreground')}
+        >
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem
+          onClick={() => setTheme('system')}
+          className={cn(
+            theme === 'system' && 'bg-accent text-accent-foreground'
+          )}
+        >
           System
         </DropdownMenuItem>
       </DropdownMenuContent>

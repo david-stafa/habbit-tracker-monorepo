@@ -5,7 +5,7 @@
 @import 'tw-animate-css';
 
 /* force Tailwind to look into UI package for scanning */
-@source "../../node_modules/@habbit-tracker/ui";
+@source "../../node_modules/@habit-tracker/ui";
 
 @custom-variant dark (&:is(.dark *));
 

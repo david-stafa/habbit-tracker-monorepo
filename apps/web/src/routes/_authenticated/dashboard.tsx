@@ -1,16 +1,16 @@
-import { Button } from '@habbit-tracker/ui/components/button'
-import { ModeToggle } from '@habbit-tracker/ui/components/mode-toggle'
-import { TypographyH2 } from '@habbit-tracker/ui/components/typography'
+import { Button } from '@habit-tracker/ui/components/button'
+import { ModeToggle } from '@habit-tracker/ui/components/mode-toggle'
+import { TypographyH2 } from '@habit-tracker/ui/components/typography'
 import {
   createFileRoute,
   useNavigate,
   useRouteContext,
 } from '@tanstack/react-router'
 import { useState } from 'react'
-import { NewHabbitDialog } from '~/components/habbits/NewHabbitDialog'
-import { HabbitInstancesOverview } from '~/domains/dashboard/components/HabbitInstancesOverview'
-import { HabbitPoints } from '~/domains/dashboard/components/HabbitPoints'
-// import { HabbitsOverview } from '~/domains/dashboard/components/HabbitsOverview'
+import { NewHabitDialog } from '~/components/habits/NewHabitDialog'
+import { HabitInstancesOverview } from '~/domains/dashboard/components/HabitInstancesOverview'
+import { HabitPoints } from '~/domains/dashboard/components/HabitPoints'
+// import { HabitsOverview } from '~/domains/dashboard/components/HabitsOverview'
 import { authClient } from '~/lib/auth'
 
 export const Route = createFileRoute('/_authenticated/dashboard')({
@@ -50,14 +50,14 @@ function Dashboard() {
           {isLoading ? 'Signing out…' : 'Sign Out'}
         </Button>
       </div>
-      <div className="flex flex-col md:flex-row h-fit items-start justify-between">
+      <div className="flex flex-col md:flex-row h-fit items-start justify-between mb-4">
         <TypographyH2>Welcome, {user?.name}.</TypographyH2>
-        <NewHabbitDialog />
+        <NewHabitDialog />
       </div>
       <div className="flex flex-col items-start gap-2 md:flex-row">
-        <HabbitInstancesOverview />
-        {/* <HabbitsOverview /> */}
-        <HabbitPoints />
+        <HabitInstancesOverview />
+        {/* <HabitsOverview /> */}
+        <HabitPoints />
       </div>
     </div>
   )

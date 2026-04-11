@@ -1,31 +1,31 @@
-import { prisma } from '@habbit-tracker/db'
+import { prisma } from '@habit-tracker/db'
 
-export const getHabbits = async (userId: string) => {
-  const habbits = await prisma.habbit.findMany({
+export const getHabits = async (userId: string) => {
+  const habits = await prisma.habit.findMany({
     where: { userId: userId },
     select: {
       id: true,
       name: true,
-      habbitInstances: { select: { date: true, completed: true } },
+      habitInstances: { select: { date: true, completed: true } },
     },
   })
-  return habbits
+  return habits
 }
 
-export const getDailyHabbitInstances = async (userId: string, day: Date) => {
+export const getDailyHabitInstances = async (userId: string, day: Date) => {
   const startOfDay = new Date(day)
   startOfDay.setHours(0, 0, 0)
 
   const endOfDay = new Date(day)
   endOfDay.setHours(23, 59, 59)
 
-  const habbitInstances = await prisma.habbitInstance.findMany({
+  const habitInstances = await prisma.habitInstance.findMany({
     where: {
       date: {
         gte: startOfDay,
         lte: endOfDay,
       },
-      habbit: {
+      habit: {
         userId,
       },
     },
@@ -33,7 +33,7 @@ export const getDailyHabbitInstances = async (userId: string, day: Date) => {
       id: true,
       completed: true,
       date: true,
-      habbit: {
+      habit: {
         select: {
           name: true,
           description: true,
@@ -45,21 +45,21 @@ export const getDailyHabbitInstances = async (userId: string, day: Date) => {
     },
   })
 
-  return habbitInstances
+  return habitInstances
 }
 
-export const toggleCompletedInHabbitInstance = async (
+export const toggleCompletedInHabitInstance = async (
   completed: boolean,
   instanceId: string
 ) => {
-  const habbitInstance = await prisma.habbitInstance.update({
+  const habitInstance = await prisma.habitInstance.update({
     where: { id: instanceId },
     data: { completed: !completed },
     select: {
       id: true,
       completed: true,
       date: true,
-      habbit: {
+      habit: {
         select: {
           name: true,
         },
@@ -67,16 +67,16 @@ export const toggleCompletedInHabbitInstance = async (
     },
   })
 
-  return habbitInstance
+  return habitInstance
 }
 
-export const createHabbitWithInstances = async (
+export const createHabitWithInstances = async (
   name: string,
   userId: string,
   points: number,
   description?: string
 ) => {
-  const habbit = await prisma.habbit.create({
+  const habit = await prisma.habit.create({
     data: {
       name: name,
       userId: userId,
@@ -92,42 +92,42 @@ export const createHabbitWithInstances = async (
   const lastDayOfNextMonth = new Date(thisYear, thisMonth + 2, 0).getDate()
   const daysTillEndOfTheMonth = lastDayOfMonth - thisDay
 
-  const habbitInstancesData = Array.from({
+  const habitInstancesData = Array.from({
     length: daysTillEndOfTheMonth + lastDayOfNextMonth,
   }).map((_, index) => {
     const now = new Date()
     return {
       date: new Date(now.setDate(now.getDate() + index)),
-      habbitId: habbit.id,
+      habitId: habit.id,
       points: points,
     }
   })
 
-  const habbitInstances = await prisma.habbitInstance.createMany({
-    data: habbitInstancesData,
+  const habitInstances = await prisma.habitInstance.createMany({
+    data: habitInstancesData,
   })
 
-  return { habbit, habbitInstances }
+  return { habit, habitInstances }
 }
 
-export const deleteHabbitWithInstances = async (
-  habbitId: string,
+export const deleteHabitWithInstances = async (
+  habitId: string,
   userId: string
 ) => {
-  const habbit = await prisma.habbit.delete({
-    where: { id: habbitId, user: { id: userId } },
+  const habit = await prisma.habit.delete({
+    where: { id: habitId, user: { id: userId } },
     select: {
       name: true,
     },
   })
-  return habbit
+  return habit
 }
 
-export const getAllHabbitPoints = async (userId: string) => {
-  const habbits = await prisma.habbitInstance.aggregate({
+export const getAllHabitPoints = async (userId: string) => {
+  const habits = await prisma.habitInstance.aggregate({
     where: {
       completed: true,
-      habbit: {
+      habit: {
         userId: userId,
       },
     },
@@ -136,5 +136,5 @@ export const getAllHabbitPoints = async (userId: string) => {
     },
   })
 
-  return habbits._sum.points || 0
+  return habits._sum.points || 0
 }

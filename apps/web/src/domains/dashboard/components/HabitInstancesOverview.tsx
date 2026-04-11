@@ -1,23 +1,23 @@
-import { Button } from '@habbit-tracker/ui/components/button'
-import { TypographyP } from '@habbit-tracker/ui/components/typography'
-import { ChevronLeftIcon, ChevronRightIcon } from '@habbit-tracker/ui/icons'
+import { Button } from '@habit-tracker/ui/components/button'
+import { TypographyP } from '@habit-tracker/ui/components/typography'
+import { ChevronLeftIcon, ChevronRightIcon } from '@habit-tracker/ui/icons'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouteContext } from '@tanstack/react-router'
 import { useState } from 'react'
-import { SingleHabbitUi } from '~/components/habbits/SingleHabbitUi'
+import { SingleHabitUi } from '~/components/habits/SingleHabitUi'
 import {
-  getDailyHabbitInstancesQuery,
-  postToggleHabbitInstanceCompleted,
-} from '~/queries/habbits/habbitQueries'
+  getDailyHabitInstancesQuery,
+  postToggleHabitInstanceCompleted,
+} from '~/queries/habits/habitQueries'
 
-export const HabbitInstancesOverview = () => {
+export const HabitInstancesOverview = () => {
   const { user } = useRouteContext({ from: '__root__' })
   const [selectedDay, setSelectedDay] = useState<Date>(new Date())
   const queryClient = useQueryClient()
 
   const { data } = useQuery({
-    queryKey: ['habbits', user?.id, selectedDay],
-    queryFn: () => getDailyHabbitInstancesQuery(user!.id, selectedDay),
+    queryKey: ['habits', user?.id, selectedDay],
+    queryFn: () => getDailyHabitInstancesQuery(user!.id, selectedDay),
   })
 
   const { mutate: toggleCompleted } = useMutation({
@@ -27,14 +27,14 @@ export const HabbitInstancesOverview = () => {
     }: {
       completed: boolean
       instanceId: string
-    }) => postToggleHabbitInstanceCompleted(completed, instanceId),
+    }) => postToggleHabitInstanceCompleted(completed, instanceId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['habbits'] })
+      queryClient.invalidateQueries({ queryKey: ['habits'] })
     },
   })
 
   return (
-    <div className="bg-card text-card-foreground border-border mt-5 w-full rounded-xl border p-2 md:w-fit md:p-4">
+    <div className="bg-card text-card-foreground border-border w-full rounded-xl border p-2 md:w-fit md:p-4">
       <div className="mb-4 flex items-center justify-between gap-2">
         <Button
           variant="secondary"
@@ -68,10 +68,10 @@ export const HabbitInstancesOverview = () => {
       </div>
       <div className="flex flex-col gap-2">
         {data?.map((instance) => (
-          <SingleHabbitUi
+          <SingleHabitUi
             key={instance.id}
-            name={instance.habbit.name}
-            description={instance.habbit.description}
+            name={instance.habit.name}
+            description={instance.habit.description}
             completed={instance.completed}
             onClick={() =>
               toggleCompleted({
@@ -83,7 +83,7 @@ export const HabbitInstancesOverview = () => {
         ))}
         {data?.length === 0 && (
           <TypographyP className="py-4 text-center">
-            No habbit instances for this day
+            No habit instances for this day
           </TypographyP>
         )}
       </div>

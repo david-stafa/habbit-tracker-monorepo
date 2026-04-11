@@ -1,5 +1,5 @@
 {
-  "name": "@habbit-tracker/api",
+  "name": "@habit-tracker/api",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -13,9 +13,9 @@
   "license": "ISC",
   "packageManager": "pnpm@10.27.0",
   "dependencies": {
-    "@habbit-tracker/auth": "workspace:*",
-    "@habbit-tracker/contracts": "workspace:*",
-    "@habbit-tracker/db": "workspace:*",
+    "@habit-tracker/auth": "workspace:*",
+    "@habit-tracker/contracts": "workspace:*",
+    "@habit-tracker/db": "workspace:*",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "@trpc/server": "^11.15.1",
@@ -27,7 +27,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@habbit-tracker/typescript-config": "workspace:*",
+    "@habit-tracker/typescript-config": "workspace:*",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.0.6",

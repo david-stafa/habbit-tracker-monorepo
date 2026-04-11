@@ -1,19 +1,19 @@
-import { CircleCheckIcon, CircleIcon } from '@habbit-tracker/ui/icons'
-import { TypographyP } from '@habbit-tracker/ui/components/typography'
+import { CircleCheckIcon, CircleIcon } from '@habit-tracker/ui/icons'
+import { TypographyP } from '@habit-tracker/ui/components/typography'
 
-interface iHabbit {
+interface iHabit {
   name: string
   description?: string
   completed: boolean
   onClick: () => void
 }
 
-export const SingleHabbitUi = ({
+export const SingleHabitUi = ({
   name,
   description,
   completed,
   onClick,
-}: iHabbit) => {
+}: iHabit) => {
   const variant = completed
     ? {
         style: 'border-primary bg-primary text-primary-foreground',

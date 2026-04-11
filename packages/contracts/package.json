@@ -1,5 +1,5 @@
 {
-  "name": "@habbit-tracker/contracts",
+  "name": "@habit-tracker/contracts",
   "version": "0.0.0",
   "type": "module",
   "exports": {
@@ -9,7 +9,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@habbit-tracker/typescript-config": "workspace:*",
+    "@habit-tracker/typescript-config": "workspace:*",
     "typescript": "^5.9.3"
   }
 }

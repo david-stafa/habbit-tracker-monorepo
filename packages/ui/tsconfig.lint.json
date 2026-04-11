@@ -1,5 +1,5 @@
 {
-  "extends": "@habbit-tracker/typescript-config/react-library.json",
+  "extends": "@habit-tracker/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist"
   },

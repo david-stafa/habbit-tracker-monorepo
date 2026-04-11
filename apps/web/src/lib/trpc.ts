@@ -1,7 +1,7 @@
 import { QueryClient } from '@tanstack/react-query'
 import { createTRPCClient, httpBatchLink } from '@trpc/client'
 import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query'
-import type { AppRouter } from '@habbit-tracker/api/trpc'
+import type { AppRouter } from '@habit-tracker/api/trpc'
 
 export const queryClient = new QueryClient()
 

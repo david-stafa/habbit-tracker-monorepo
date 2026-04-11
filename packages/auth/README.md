@@ -1,6 +1,6 @@
-# @habbit-tracker/auth
+# @habit-tracker/auth
 
-Shared authentication package for the Habbit Tracker monorepo using Better Auth.
+Shared authentication package for the Habit Tracker monorepo using Better Auth.
 
 ## Structure
 
@@ -12,7 +12,7 @@ Shared authentication package for the Habbit Tracker monorepo using Better Auth.
 ### Server-side (Express API)
 
 ```typescript
-import { auth } from "@habbit-tracker/auth";
+import { auth } from "@habit-tracker/auth";
 import { toNodeHandler } from "better-auth/node";
 
 app.all("/api/auth/*", toNodeHandler(auth));
@@ -49,5 +49,5 @@ pnpx @better-auth/cli generate
 Then apply the migration:
 
 ```bash
-pnpm --filter @habbit-tracker/db db:migrate
+pnpm --filter @habit-tracker/db db:migrate
 ```

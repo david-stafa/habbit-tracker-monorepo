@@ -1,5 +1,5 @@
 {
-  "extends": "@habbit-tracker/typescript-config/base.json",
+  "extends": "@habit-tracker/typescript-config/base.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src"

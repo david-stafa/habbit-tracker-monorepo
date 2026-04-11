@@ -1,5 +1,5 @@
 {
-  "name": "@habbit-tracker/web",
+  "name": "@habit-tracker/web",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -13,10 +13,10 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@habbit-tracker/auth": "workspace:*",
-    "@habbit-tracker/contracts": "workspace:*",
-    "@habbit-tracker/ui": "workspace:*",
-    "@habbit-tracker/api": "workspace:*",
+    "@habit-tracker/auth": "workspace:*",
+    "@habit-tracker/contracts": "workspace:*",
+    "@habit-tracker/ui": "workspace:*",
+    "@habit-tracker/api": "workspace:*",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-form": "^1.28.2",
     "@tanstack/react-query": "^5.90.21",
@@ -31,8 +31,8 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@habbit-tracker/eslint-config": "workspace:*",
-    "@habbit-tracker/typescript-config": "workspace:*",
+    "@habit-tracker/eslint-config": "workspace:*",
+    "@habit-tracker/typescript-config": "workspace:*",
     "@tanstack/router-plugin": "^1.145.7",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.5",

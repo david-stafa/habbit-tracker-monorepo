@@ -1,6 +1,6 @@
 # @repo/eslint-config
 
-Shared ESLint configurations for the habbit tracker monorepo.
+Shared ESLint configurations for the habit tracker monorepo.
 
 ## Configurations
 

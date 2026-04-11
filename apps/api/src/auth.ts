@@ -1,4 +1,4 @@
-import { createAuth } from '@habbit-tracker/auth'
+import { createAuth } from '@habit-tracker/auth'
 import { API_URL, WEB_URL } from './config'
 
 export const auth = createAuth({

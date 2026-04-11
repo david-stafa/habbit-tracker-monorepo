@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from 'react'
 import { Link, type LinkProps } from '@tanstack/react-router'
-import { Button } from '@habbit-tracker/ui/components/button'
+import { Button } from '@habit-tracker/ui/components/button'
 
 type ButtonLinkProps = LinkProps &
   Partial<

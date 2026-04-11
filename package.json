@@ -1,5 +1,5 @@
 {
-  "name": "habbit-tracker",
+  "name": "habit-tracker",
   "private": true,
   "engines": {
     "node": ">=24.0.0"

@@ -8,8 +8,8 @@ model User {
   updatedAt       DateTime         @updatedAt
   sessions        Session[]
   accounts        Account[]
-  habbits         Habbit[]
-  habbitInstances HabbitInstance[]
+  habits          Habit[]
+  habitInstances  HabitInstance[]
   monthlyRewards   MonthlyRewards[]
 
   @@unique([email])

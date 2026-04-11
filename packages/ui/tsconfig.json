@@ -1,9 +1,9 @@
 {
-  "extends": "@habbit-tracker/typescript-config/react-library.json",
+  "extends": "@habit-tracker/typescript-config/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@habbit-tracker/ui/*": ["./src/*"]
+      "@habit-tracker/ui/*": ["./src/*"]
     }
   },
   "include": ["."],

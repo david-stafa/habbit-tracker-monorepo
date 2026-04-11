@@ -1,5 +1,5 @@
 {
-  "name": "@habbit-tracker/typescript-config",
+  "name": "@habit-tracker/typescript-config",
   "version": "0.0.0",
   "private": true,
   "exports": {

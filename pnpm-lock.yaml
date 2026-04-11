@@ -17,13 +17,13 @@ importers:
 
   apps/api:
     dependencies:
-      '@habbit-tracker/auth':
+      '@habit-tracker/auth':
         specifier: workspace:*
         version: link:../../packages/auth
-      '@habbit-tracker/contracts':
+      '@habit-tracker/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
-      '@habbit-tracker/db':
+      '@habit-tracker/db':
         specifier: workspace:*
         version: link:../../packages/database
       '@prisma/adapter-pg':
@@ -54,7 +54,7 @@ importers:
         specifier: ^4.3.6
         version: 4.3.6
     devDependencies:
-      '@habbit-tracker/typescript-config':
+      '@habit-tracker/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@types/cors':
@@ -75,16 +75,16 @@ importers:
 
   apps/web:
     dependencies:
-      '@habbit-tracker/api':
+      '@habit-tracker/api':
         specifier: workspace:*
         version: link:../api
-      '@habbit-tracker/auth':
+      '@habit-tracker/auth':
         specifier: workspace:*
         version: link:../../packages/auth
-      '@habbit-tracker/contracts':
+      '@habit-tracker/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
-      '@habbit-tracker/ui':
+      '@habit-tracker/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tailwindcss/vite':
@@ -124,10 +124,10 @@ importers:
         specifier: ^4.3.6
         version: 4.3.6
     devDependencies:
-      '@habbit-tracker/eslint-config':
+      '@habit-tracker/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@habbit-tracker/typescript-config':
+      '@habit-tracker/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@tanstack/router-plugin':
@@ -163,17 +163,17 @@ importers:
 
   packages/auth:
     dependencies:
-      '@habbit-tracker/db':
+      '@habit-tracker/db':
         specifier: workspace:*
         version: link:../database
       better-auth:
         specifier: ^1.4.12
         version: 1.4.12(@prisma/client@7.2.0(prisma@7.2.0(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.9.3))(typescript@5.9.3))(mysql2@3.15.3)(pg@8.16.3)(prisma@7.2.0(@types/react@19.2.8)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@5.9.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
     devDependencies:
-      '@habbit-tracker/eslint-config':
+      '@habit-tracker/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@habbit-tracker/typescript-config':
+      '@habit-tracker/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@types/node':
@@ -192,7 +192,7 @@ importers:
         specifier: ^4.3.6
         version: 4.3.6
     devDependencies:
-      '@habbit-tracker/typescript-config':
+      '@habit-tracker/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       typescript:
@@ -214,10 +214,10 @@ importers:
         specifier: ^8.16.3
         version: 8.16.3
     devDependencies:
-      '@habbit-tracker/eslint-config':
+      '@habit-tracker/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@habbit-tracker/typescript-config':
+      '@habit-tracker/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@types/pg':
@@ -323,10 +323,10 @@ importers:
         specifier: ^3.25.76
         version: 3.25.76
     devDependencies:
-      '@habbit-tracker/eslint-config':
+      '@habit-tracker/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@habbit-tracker/typescript-config':
+      '@habit-tracker/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@tailwindcss/postcss':

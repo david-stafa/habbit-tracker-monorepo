@@ -1,4 +1,4 @@
-# Habbit Tracker
+# Habit Tracker
 
 Monorepo for habit tracking application.
 

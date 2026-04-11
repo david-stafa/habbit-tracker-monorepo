@@ -1,7 +1,7 @@
 import {
   TypographyH2,
   TypographyP,
-} from '@habbit-tracker/ui/components/typography'
+} from '@habit-tracker/ui/components/typography'
 import { LogInForm } from '~/components/auth/LogInFom'
 
 export const LogInPage = () => {

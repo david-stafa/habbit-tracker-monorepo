@@ -11,10 +11,10 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@habbit-tracker/ui/components",
-    "utils": "@habbit-tracker/ui/lib/utils",
-    "hooks": "@habbit-tracker/ui/hooks",
-    "lib": "@habbit-tracker/ui/lib",
-    "ui": "@habbit-tracker/ui/components"
+    "components": "@habit-tracker/ui/components",
+    "utils": "@habit-tracker/ui/lib/utils",
+    "hooks": "@habit-tracker/ui/hooks",
+    "lib": "@habit-tracker/ui/lib",
+    "ui": "@habit-tracker/ui/components"
   }
 }

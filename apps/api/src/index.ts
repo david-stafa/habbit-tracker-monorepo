@@ -1,11 +1,11 @@
-import { toNodeHandler } from '@habbit-tracker/auth'
+import { toNodeHandler } from '@habit-tracker/auth'
 import * as trpcExpress from '@trpc/server/adapters/express'
 import cors from 'cors'
 import express from 'express'
 import { auth } from './auth'
 import { PORT, WEB_URL } from './config'
 import { appRouter } from './routers/_app'
-import habbitsRoutes from './routes/habbits'
+import habitsRoutes from './routes/habits'
 import { createContext } from './routers/_context'
 
 const app = express()
@@ -35,7 +35,7 @@ app.use(
   })
 )
 
-app.use('/api/habbits', habbitsRoutes)
+app.use('/api/habits', habitsRoutes)
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)

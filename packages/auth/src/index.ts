@@ -1,6 +1,6 @@
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
-import { prisma } from '@habbit-tracker/db'
+import { prisma } from '@habit-tracker/db'
 
 interface AuthOptions {
   trustedOrigins: string[]

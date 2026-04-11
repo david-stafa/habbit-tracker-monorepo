@@ -1,4 +1,4 @@
-import '@habbit-tracker/ui/globals.css'
+import '@habit-tracker/ui/globals.css'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { StrictMode } from 'react'

@@ -2,19 +2,19 @@ import { z } from "zod";
 
 // ---- Request schemas ----
 
-export const GetHabbitsQuerySchema = z.object({
+export const GetHabitsQuerySchema = z.object({
   userId: z.string(),
 });
 
-export const CreateHabbitBodySchema = z.object({
+export const CreateHabitBodySchema = z.object({
   name: z.string().min(1),
   userId: z.string(),
   points: z.number().min(1),
   description: z.string().optional(),
 });
 
-export const DeleteHabbitQuerySchema = z.object({
-  habbitId: z.string(),
+export const DeleteHabitQuerySchema = z.object({
+  habitId: z.string(),
   userId: z.string(),
 });
 
@@ -28,30 +28,30 @@ export const ToggleInstanceBodySchema = z.object({
   instanceId: z.string(),
 });
 
-export const GetAllHabbitPointsQuerySchema = z.object({
+export const GetAllHabitPointsQuerySchema = z.object({
   userId: z.string(),
 });
 
 // ---- Response schemas ----
 
-export const HabbitSchema = z.object({
+export const HabitSchema = z.object({
   id: z.string(),
   name: z.string(),
-  habbitInstances: z.array(
+  habitInstances: z.array(
     z.object({ date: z.coerce.date(), completed: z.boolean() })
   ),
 });
 
-export const HabbitInstanceSchema = z.object({
+export const HabitInstanceSchema = z.object({
   id: z.string(),
   completed: z.boolean(),
   date: z.coerce.date(),
-  habbit: z.object({ name: z.string(), description: z.string().optional() }),
+  habit: z.object({ name: z.string(), description: z.string().optional() }),
 });
 
 // ---- Inferred types (used on both sides) ----
 
-export type Habbit = z.infer<typeof HabbitSchema>;
-export type HabbitInstance = z.infer<typeof HabbitInstanceSchema>;
-export type GetHabbitsQuery = z.infer<typeof GetHabbitsQuerySchema>;
-export type CreateHabbitBody = z.infer<typeof CreateHabbitBodySchema>;
+export type Habit = z.infer<typeof HabitSchema>;
+export type HabitInstance = z.infer<typeof HabitInstanceSchema>;
+export type GetHabitsQuery = z.infer<typeof GetHabitsQuerySchema>;
+export type CreateHabitBody = z.infer<typeof CreateHabitBodySchema>;

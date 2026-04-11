@@ -1,17 +1,17 @@
 import {
   TypographyH4,
   TypographyP,
-} from '@habbit-tracker/ui/components/typography'
+} from '@habit-tracker/ui/components/typography'
 import { useQuery } from '@tanstack/react-query'
 import { useRouteContext } from '@tanstack/react-router'
-import { getAllHabbitPointsQuery } from '~/queries/habbits/habbitQueries'
+import { getAllHabitPointsQuery } from '~/queries/habits/habitQueries'
 
-export const HabbitPoints = () => {
+export const HabitPoints = () => {
   const { user } = useRouteContext({ from: '__root__' })
 
   const { isPending, isError, data } = useQuery({
-    queryKey: ['habbits', 'allHabbitPoints', user?.id],
-    queryFn: () => getAllHabbitPointsQuery(user!.id),
+    queryKey: ['habits', 'allHabitPoints', user?.id],
+    queryFn: () => getAllHabitPointsQuery(user!.id),
   })
 
   if (isPending) return <div>Loading...</div>

@@ -1,4 +1,4 @@
-import { Button } from '@habbit-tracker/ui/components/button'
+import { Button } from '@habit-tracker/ui/components/button'
 import {
   Dialog,
   DialogContent,
@@ -6,12 +6,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@habbit-tracker/ui/components/dialog'
-import { PlusIcon } from '@habbit-tracker/ui/icons'
+} from '@habit-tracker/ui/components/dialog'
+import { PlusIcon } from '@habit-tracker/ui/icons'
 import { useState } from 'react'
-import { NewHabbitForm } from './NewHabbitForm'
+import { NewHabitForm } from './NewHabitForm'
 
-export function NewHabbitDialog() {
+export function NewHabitDialog() {
   const [open, setOpen] = useState(false)
 
   return (
@@ -31,7 +31,7 @@ export function NewHabbitDialog() {
           </DialogDescription>
         </DialogHeader>
         {/* NEW HABBIT FORM */}
-        <NewHabbitForm onSuccess={() => setOpen(false)} />
+        <NewHabitForm onSuccess={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   )

@@ -1,5 +1,5 @@
-import { ModeToggle } from '@habbit-tracker/ui/components/mode-toggle'
-import { TypographyH1 } from '@habbit-tracker/ui/components/typography'
+import { ModeToggle } from '@habit-tracker/ui/components/mode-toggle'
+import { TypographyH1 } from '@habit-tracker/ui/components/typography'
 import { ButtonLink } from '~/components/ui/button-link'
 
 export const RootPage = () => {

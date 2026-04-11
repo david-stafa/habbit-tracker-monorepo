@@ -1,41 +1,41 @@
-import { Input } from '@habbit-tracker/ui/components/input'
-import { Label } from '@habbit-tracker/ui/components/label'
+import { Input } from '@habit-tracker/ui/components/input'
+import { Label } from '@habit-tracker/ui/components/label'
 import { formOptions, useForm } from '@tanstack/react-form'
 import z from 'zod'
 import { FieldInfo } from '../form/FieldInfo'
-import { Button } from '@habbit-tracker/ui/components/button'
+import { Button } from '@habit-tracker/ui/components/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { createHabbitQuery } from '~/queries/habbits/habbitQueries'
+import { createHabitQuery } from '~/queries/habits/habitQueries'
 import { useRouteContext } from '@tanstack/react-router'
 
-const habbitSchema = z.object({
+const habitSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   userId: z.string(),
   points: z.number().min(1).max(10),
 })
 
-type HabbitType = z.infer<typeof habbitSchema>
+type HabitType = z.infer<typeof habitSchema>
 
-const defaultHabbit: HabbitType = { name: '', userId: '', points: 1 }
+const defaultHabit: HabitType = { name: '', userId: '', points: 1 }
 
 const formOpts = formOptions({
-  defaultValues: defaultHabbit,
+  defaultValues: defaultHabit,
 })
 
-type NewHabbitFormProps = {
+type NewHabitFormProps = {
   onSuccess?: () => void
 }
 
-export const NewHabbitForm = ({ onSuccess }: NewHabbitFormProps) => {
+export const NewHabitForm = ({ onSuccess }: NewHabitFormProps) => {
   const { user } = useRouteContext({ from: '__root__' })
   const queryClient = useQueryClient()
 
-  const { mutate: createHabbit } = useMutation({
-    mutationFn: (value: HabbitType) =>
-      createHabbitQuery(value.name, value.userId, value.points, value.description),
+  const { mutate: createHabit } = useMutation({
+    mutationFn: (value: HabitType) =>
+      createHabitQuery(value.name, value.userId, value.points, value.description),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['habbits'] }) // refetch list
+      queryClient.invalidateQueries({ queryKey: ['habits'] }) // refetch list
       onSuccess?.()
     },
   })
@@ -43,13 +43,13 @@ export const NewHabbitForm = ({ onSuccess }: NewHabbitFormProps) => {
   const form = useForm({
     ...formOpts,
     //! Figure out how to handle userId without "!"
-    defaultValues: { ...defaultHabbit, userId: user!.id },
+    defaultValues: { ...defaultHabit, userId: user!.id },
     validators: {
-      onBlur: habbitSchema,
-      onSubmit: habbitSchema,
+      onBlur: habitSchema,
+      onSubmit: habitSchema,
     },
     onSubmit: async ({ value }) => {
-      createHabbit(value)
+      createHabit(value)
     },
   })
 

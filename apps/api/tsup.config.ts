@@ -7,7 +7,7 @@ export default defineConfig({
   platform: 'node',
   clean: true,
   sourcemap: true,
-  noExternal: [/@habbit-tracker\/[\w-]+/],
+  noExternal: [/@habit-tracker\/[\w-]+/],
   external: [
     'pg',
     /^@prisma\//,

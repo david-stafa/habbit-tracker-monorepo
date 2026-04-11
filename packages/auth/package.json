@@ -1,5 +1,5 @@
 {
-  "name": "@habbit-tracker/auth",
+  "name": "@habit-tracker/auth",
   "version": "0.0.0",
   "type": "module",
   "private": true,
@@ -7,12 +7,12 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@habbit-tracker/db": "workspace:*",
+    "@habit-tracker/db": "workspace:*",
     "better-auth": "^1.4.12"
   },
   "devDependencies": {
-    "@habbit-tracker/typescript-config": "workspace:*",
-    "@habbit-tracker/eslint-config": "workspace:*",
+    "@habit-tracker/typescript-config": "workspace:*",
+    "@habit-tracker/eslint-config": "workspace:*",
     "@types/node": "^25.0.6",
     "typescript": "^5.9.3",
     "eslint": "^9.22.0"
