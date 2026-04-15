@@ -3,7 +3,7 @@ import { TypographyP } from '@habit-tracker/ui/components/typography'
 
 interface iHabit {
   name: string
-  description?: string
+  description: string | null
   completed: boolean
   onClick: () => void
 }

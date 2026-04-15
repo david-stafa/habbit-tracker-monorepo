@@ -28,7 +28,7 @@ app.use(express.json())
 app.all('/api/auth/*splat', toNodeHandler(auth))
 
 app.use(
-  '/api/trpc/*splat',
+  '/api/trpc',
   trpcExpress.createExpressMiddleware({
     router: appRouter,
     createContext,

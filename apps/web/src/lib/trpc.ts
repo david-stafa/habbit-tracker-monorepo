@@ -1,29 +1,15 @@
-import { QueryClient } from '@tanstack/react-query'
-import { createTRPCClient, httpBatchLink } from '@trpc/client'
-import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query'
-import type { AppRouter } from '@habit-tracker/api/trpc'
-
-export const queryClient = new QueryClient()
-
-const apiOrigin =
-  (import.meta.env.VITE_API_URL as string) || 'http://localhost:3001'
-const trpcUrl = `${apiOrigin.replace(/\/$/, '')}/api/trpc`
-
+import { QueryClient } from '@tanstack/react-query';
+import { createTRPCClient, httpBatchLink } from '@trpc/client';
+import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query';
+import type { AppRouter } from '@habit-tracker/api/trpc';
+ 
+export const queryClient = new QueryClient();
+ 
 const trpcClient = createTRPCClient<AppRouter>({
-  links: [
-    httpBatchLink({
-      url: trpcUrl,
-      fetch(url, options) {
-        return fetch(url, {
-          ...options,
-          credentials: 'include',
-        })
-      },
-    }),
-  ],
-})
-
+  links: [httpBatchLink({ url: `${import.meta.env.VITE_API_URL}/api/trpc` })],
+});
+ 
 export const trpc = createTRPCOptionsProxy<AppRouter>({
   client: trpcClient,
   queryClient,
-})
+});
