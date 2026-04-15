@@ -13,11 +13,12 @@ export const HabitInstancesOverview = () => {
   const [selectedDay, setSelectedDay] = useState<Date>(new Date())
   const queryClient = useQueryClient()
 
+
   const { data, isLoading, isSuccess } = useQuery(
     trpc.habit.dailyHabitInstances.queryOptions({
       userId: user!.id,
       day: selectedDay,
-    })
+    }),
   )
 
   const { mutate: toggleCompleted } = useMutation({
@@ -29,7 +30,12 @@ export const HabitInstancesOverview = () => {
       instanceId: string
     }) => postToggleHabitInstanceCompleted(completed, instanceId),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['habits'] })
+      queryClient.invalidateQueries({
+        queryKey: trpc.habit.dailyHabitInstances.queryKey({
+          userId: user!.id,
+          day: selectedDay,
+        }),
+      })
     },
   })
 
@@ -77,7 +83,7 @@ export const HabitInstancesOverview = () => {
   }
 
   return (
-    <div className="bg-card text-card-foreground border-border w-full rounded-xl border p-2 md:w-fit md:p-4">
+    <div className="bg-card text-card-foreground border-border w-full rounded-xl border p-2 md:w-80 md:p-4">
       {header}
       <div className="flex flex-col gap-2">
         {!isSuccess || data?.length === 0 ? (
