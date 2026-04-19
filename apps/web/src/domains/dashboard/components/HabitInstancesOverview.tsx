@@ -43,11 +43,11 @@ export const HabitInstancesOverview = () => {
     <div className="mb-4 flex items-center justify-between gap-2">
       <Button
         variant="secondary"
-        onClick={() =>
-          setSelectedDay(
-            new Date(selectedDay.setDate(selectedDay.getDate() - 1))
-          )
-        }
+        onClick={() => {
+          const prev = new Date(selectedDay)
+          prev.setDate(prev.getDate() - 1)
+          setSelectedDay(prev)
+        }}
         className="rounded-lg"
       >
         <ChevronLeftIcon />
@@ -61,11 +61,11 @@ export const HabitInstancesOverview = () => {
       </TypographyP>
       <Button
         variant="secondary"
-        onClick={() =>
-          setSelectedDay(
-            new Date(selectedDay.setDate(selectedDay.getDate() + 1))
-          )
-        }
+        onClick={() => {
+          const next = new Date(selectedDay)
+          next.setDate(next.getDate() + 1)
+          setSelectedDay(next)
+        }}
         className="rounded-lg"
       >
         <ChevronRightIcon />
