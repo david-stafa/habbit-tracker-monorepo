@@ -1,5 +1,5 @@
 import { prisma } from '@habit-tracker/db'
-import { CreateHabitInstanceInput } from '../schemas/schemas'
+import type { CreateHabitInstanceInput } from '../schemas/schemas'
 
 export const createHabitInstance = async (input: CreateHabitInstanceInput) => {
   await prisma.habitInstance.upsert({
