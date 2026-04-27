@@ -1,6 +1,10 @@
 import { Button } from '@habit-tracker/ui/components/button'
 import { TypographyP } from '@habit-tracker/ui/components/typography'
-import { ChevronLeftIcon, ChevronRightIcon } from '@habit-tracker/ui/icons'
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  SmileIcon,
+} from '@habit-tracker/ui/icons'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouteContext } from '@tanstack/react-router'
 import { useState } from 'react'
@@ -59,9 +63,9 @@ export const HabitInstancesOverview = () => {
 
   if (isLoading) {
     return (
-      <div className="bg-card text-card-foreground border-border w-full rounded-xl border p-2 md:w-fit md:p-4">
+      <div className="bg-card text-card-foreground border-border w-full rounded-xl border p-2 md:w-80 md:p-4">
         {header}
-        <div>Loading...</div>
+        <HabitSkeleton />
       </div>
     )
   }
@@ -71,9 +75,10 @@ export const HabitInstancesOverview = () => {
       {header}
       <div className="flex flex-col gap-2">
         {!isSuccess || data?.length === 0 ? (
-          <TypographyP className="py-4 text-center">
-            No habit instances for this day
-          </TypographyP>
+          <div className="bg-muted border-border flex h-14 w-full min-w-40 items-center justify-center rounded-xl border">
+            Take a break and enjoy your day!
+            <SmileIcon className="ml-2 size-4" />
+          </div>
         ) : (
           data.map((habit) => (
             <SingleHabitUi
@@ -94,6 +99,17 @@ export const HabitInstancesOverview = () => {
           ))
         )}
       </div>
+    </div>
+  )
+}
+
+const HabitSkeleton = () => {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="bg-muted border-border h-14 w-full min-w-40 animate-pulse rounded-xl border" />
+      <div className="bg-muted border-border h-14 w-full min-w-40 animate-pulse rounded-xl border" />
+      <div className="bg-muted border-border h-14 w-full min-w-40 animate-pulse rounded-xl border" />
+      <div className="bg-muted border-border h-14 w-full min-w-40 animate-pulse rounded-xl border" />
     </div>
   )
 }
