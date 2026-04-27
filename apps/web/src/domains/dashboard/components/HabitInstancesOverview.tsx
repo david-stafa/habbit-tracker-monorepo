@@ -6,65 +6,49 @@ import { useRouteContext } from '@tanstack/react-router'
 import { useState } from 'react'
 import { SingleHabitUi } from '~/components/habits/SingleHabitUi'
 import { trpc } from '~/lib/trpc'
-import { postToggleHabitInstanceCompleted } from '~/queries/habits/habitQueries'
+import dayjs from 'dayjs'
 
 export const HabitInstancesOverview = () => {
   const { user } = useRouteContext({ from: '__root__' })
-  const [selectedDay, setSelectedDay] = useState<Date>(new Date())
+  const [selectedDay, setSelectedDay] = useState(dayjs())
   const queryClient = useQueryClient()
 
-
   const { data, isLoading, isSuccess } = useQuery(
-    trpc.habit.dailyHabitInstances.queryOptions({
+    trpc.habit.getTodayHabits.queryOptions({
       userId: user!.id,
-      day: selectedDay,
-    }),
+      day: selectedDay.toISOString(),
+    })
   )
 
-  const { mutate: toggleCompleted } = useMutation({
-    mutationFn: ({
-      completed,
-      instanceId,
-    }: {
-      completed: boolean
-      instanceId: string
-    }) => postToggleHabitInstanceCompleted(completed, instanceId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: trpc.habit.dailyHabitInstances.queryKey({
-          userId: user!.id,
-          day: selectedDay,
-        }),
-      })
-    },
-  })
+  const { mutate: upsertHabitInstance } = useMutation(
+    trpc.habit.upsertHabitInstance.mutationOptions({
+      onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: trpc.habit.getTodayHabits.queryKey({
+            userId: user!.id,
+            day: selectedDay.toISOString(),
+          }),
+        })
+      },
+    })
+  )
 
   const header = (
     <div className="mb-4 flex items-center justify-between gap-2">
       <Button
         variant="secondary"
         onClick={() => {
-          const prev = new Date(selectedDay)
-          prev.setDate(prev.getDate() - 1)
-          setSelectedDay(prev)
+          setSelectedDay((prev) => prev.subtract(1, 'day'))
         }}
         className="rounded-lg"
       >
         <ChevronLeftIcon />
       </Button>
-      <TypographyP>
-        {selectedDay.toLocaleDateString('en-US', {
-          weekday: 'long',
-          day: 'numeric',
-          month: 'long',
-        })}
-      </TypographyP>
+      <TypographyP>{selectedDay.format('dddd, D.M.')}</TypographyP>
       <Button
         variant="secondary"
         onClick={() => {
-          const next = new Date(selectedDay)
-          next.setDate(next.getDate() + 1)
-          setSelectedDay(next)
+          setSelectedDay((prev) => prev.add(1, 'day'))
         }}
         className="rounded-lg"
       >
@@ -91,16 +75,19 @@ export const HabitInstancesOverview = () => {
             No habit instances for this day
           </TypographyP>
         ) : (
-          data.map((instance) => (
+          data.map((habit) => (
             <SingleHabitUi
-              key={instance.id}
-              name={instance.habit.name}
-              description={instance.habit.description}
-              completed={instance.completed}
+              key={habit.id}
+              name={habit.name}
+              description={habit.description}
+              completed={habit.habitInstances[0]?.completed ?? false}
               onClick={() =>
-                toggleCompleted({
-                  completed: instance.completed,
-                  instanceId: instance.id,
+                upsertHabitInstance({
+                  habitId: habit.id,
+                  userId: user!.id,
+                  date: selectedDay.format('YYYY-MM-DD'),
+                  completed: habit.habitInstances[0]?.completed ? false : true,
+                  points: habit.points,
                 })
               }
             />

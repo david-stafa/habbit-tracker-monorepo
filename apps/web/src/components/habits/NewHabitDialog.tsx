@@ -22,7 +22,7 @@ export function NewHabitDialog() {
         </Button>
       </DialogTrigger>
       {/* CONTENT */}
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="min-w-fit">
         {/* HEADER */}
         <DialogHeader>
           <DialogTitle>Add New Habit</DialogTitle>
@@ -30,7 +30,7 @@ export function NewHabitDialog() {
             Add a new habit to your tracker.
           </DialogDescription>
         </DialogHeader>
-        {/* NEW HABBIT FORM */}
+        {/* NEW HABIT FORM */}
         <NewHabitForm onSuccess={() => setOpen(false)} />
       </DialogContent>
     </Dialog>

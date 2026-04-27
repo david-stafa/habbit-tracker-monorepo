@@ -12,3 +12,6 @@ export const WEB_URL = z
   .string()
   .default('http://localhost:5173')
   .parse(process.env.WEB_URL)
+export const DATABASE_URL = z
+  .string()
+  .parse(process.env.DATABASE_URL)

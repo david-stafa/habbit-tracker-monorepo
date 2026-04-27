@@ -5,19 +5,27 @@ import z from 'zod'
 import { FieldInfo } from '../form/FieldInfo'
 import { Button } from '@habit-tracker/ui/components/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { createHabitQuery } from '~/queries/habits/habitQueries'
 import { useRouteContext } from '@tanstack/react-router'
+import { trpc } from '~/lib/trpc'
+import { Weekday } from '../../../../../packages/database/generated/prisma/enums'
+import { cn } from '@habit-tracker/ui/lib/utils'
 
 const habitSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   userId: z.string(),
   points: z.number().min(1).max(10),
+  scheduleDays: z.array(z.enum(Weekday)),
 })
 
 type HabitType = z.infer<typeof habitSchema>
 
-const defaultHabit: HabitType = { name: '', userId: '', points: 1 }
+const defaultHabit: HabitType = {
+  name: '',
+  userId: '',
+  points: 1,
+  scheduleDays: ['everyDay'],
+}
 
 const formOpts = formOptions({
   defaultValues: defaultHabit,
@@ -31,14 +39,16 @@ export const NewHabitForm = ({ onSuccess }: NewHabitFormProps) => {
   const { user } = useRouteContext({ from: '__root__' })
   const queryClient = useQueryClient()
 
-  const { mutate: createHabit } = useMutation({
-    mutationFn: (value: HabitType) =>
-      createHabitQuery(value.name, value.userId, value.points, value.description),
+  const habitMutationOptions = trpc.habit.createHabit.mutationOptions({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['habits'] }) // refetch list
+      queryClient.invalidateQueries({
+        queryKey: trpc.habit.getTodayHabits.queryKey({ userId: user?.id }),
+      })
       onSuccess?.()
     },
   })
+
+  const { mutate: createHabit } = useMutation(habitMutationOptions)
 
   const form = useForm({
     ...formOpts,
@@ -67,7 +77,7 @@ export const NewHabitForm = ({ onSuccess }: NewHabitFormProps) => {
         children={(field) => (
           <div className="flex flex-col gap-2">
             <Label htmlFor="name">Habit Name</Label>
-            <Input  
+            <Input
               id="name"
               value={field.state.value}
               onChange={(e) => field.handleChange(e.target.value)}
@@ -89,6 +99,34 @@ export const NewHabitForm = ({ onSuccess }: NewHabitFormProps) => {
               onBlur={field.handleBlur}
             />
             <FieldInfo field={field} />
+          </div>
+        )}
+      />
+      <form.Field
+        name="scheduleDays"
+        mode="array"
+        children={(field) => (
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="scheduleDays">Schedule Days</Label>
+            <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+              {Object.values(Weekday).map((day) => (
+                <div
+                  onClick={() =>
+                    field.state.value.includes(day)
+                      ? field.removeValue(field.state.value.indexOf(day))
+                      : field.pushValue(day)
+                  }
+                  className={cn(
+                    'w-full md:w-28 cursor-default rounded-md p-2 text-center',
+                    field.state.value.includes(day)
+                      ? 'bg-primary'
+                      : 'bg-secondary'
+                  )}
+                >
+                  {day}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       />

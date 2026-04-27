@@ -1,13 +1,15 @@
 model Habit {
-  id              String          @id @default(cuid())
-  name            String
-  description     String?
-  points          Int             @default(1)
-  habitInstances  HabitInstance[]
-  userId          String
-  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  id             String          @id @default(cuid())
+  name           String
+  description    String?
+  scheduleDays   Weekday[]       @default([everyDay])
+  points         Int             @default(1)
+  habitInstances HabitInstance[]
+
+  userId         String
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 
   @@map("habit")
 }
@@ -17,19 +19,21 @@ model HabitInstance {
   date      DateTime
   points    Int      @default(1)
   completed Boolean  @default(false)
+
   habitId   String
   habit     Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   user      User?    @relation(fields: [userId], references: [id])
   userId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  @@unique([habitId, date])
   @@map("habitInstance")
 }
 
 model MonthlyRewards {
-  id        String   @id @default(cuid())
-  points    Int      @default(0)
+  id     String @id @default(cuid())
+  points Int    @default(0)
 
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -37,4 +41,15 @@ model MonthlyRewards {
   updatedAt DateTime @updatedAt
 
   @@map("weeklyRewards")
+}
+
+enum Weekday {
+  everyDay
+  Monday 
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
 }

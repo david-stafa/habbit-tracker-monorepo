@@ -37,6 +37,10 @@ app.use(
 
 app.use('/api/habits', habitsRoutes)
 
+/* We do not need jobs for now */
+// await boss.start()
+// await registerGenerateMonthlyInstancesJob()
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
 })

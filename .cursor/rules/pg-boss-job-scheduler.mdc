@@ -1,0 +1,61 @@
+---
+description: pg-boss job scheduling setup, patterns, and conventions for this project
+globs: apps/api/src/jobs/**/*.ts
+alwaysApply: false
+---
+
+# pg-boss Job Scheduling
+
+This project uses `pg-boss` (Postgres-backed) for job scheduling. No Redis required.
+
+## Setup
+
+`boss.start()` auto-creates a `pgboss` schema in Postgres on first run. It is called in `apps/api/src/index.ts` before `app.listen()`.
+
+```ts
+// apps/api/src/jobs/boss.ts
+import { PgBoss } from 'pg-boss'
+import { DATABASE_URL } from '../config'
+
+export const boss = new PgBoss(DATABASE_URL)
+```
+
+## Registering a Job
+
+Always follow this order — createQueue → schedule → work:
+
+```ts
+const QUEUE = 'my-job-name'
+
+export async function registerMyJob() {
+  await boss.createQueue(QUEUE)           // must be called before schedule/work
+  await boss.schedule(QUEUE, '0 0 1 * *', {})  // cron: midnight on 1st of month
+  await boss.work(QUEUE, async ([job]) => {
+    // job logic here
+  })
+}
+```
+
+## Monthly Habit Instance Job
+
+- Queue: `generate-monthly-instances`
+- Cron: `0 0 1 * *` (midnight, 1st of every month)
+- File: `apps/api/src/jobs/generateMonthlyInstances.ts`
+- When a `Habit` is created mid-month, instances for the remainder of the current month are created immediately at habit creation time — the job only handles the month rollover
+
+## Key Facts
+
+- `pgboss` schema is NOT visible in Prisma Studio — use TablePlus or the dashboard
+- `__pgboss__send-it` jobs appearing in the dashboard are internal pg-boss jobs used to trigger scheduled queues — they are expected and not duplicates
+- The dashboard runs as a standalone server, not Express middleware:
+  ```bash
+  DATABASE_URL="..." pnpx @pg-boss/dashboard
+  # open http://localhost:3000
+  ```
+- Jobs page (`/jobs`) shows execution history; Schedules page (`/schedules`) shows cron config only
+
+## Testing a Job Locally
+
+Temporarily change the cron to `* * * * *` (every minute) to verify it fires, then revert to `0 0 1 * *`.
+
+Do not use `boss.send()` for testing unless needed — it creates an extra visible `__pgboss__send-it` job in the dashboard.

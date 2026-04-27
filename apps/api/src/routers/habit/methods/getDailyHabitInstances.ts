@@ -1,4 +1,5 @@
-import { prisma } from '@habit-tracker/db'
+import { prisma, Weekday } from '@habit-tracker/db'
+import dayjs from 'dayjs'
 
 export const getDailyHabitInstances = async ({
   userId,
@@ -7,37 +8,34 @@ export const getDailyHabitInstances = async ({
   userId: string
   day: Date
 }) => {
-  const startOfDay = new Date(day)
-  startOfDay.setHours(0, 0, 0)
+  const dayOfWeek = dayjs(day).format('dddd') as Weekday
 
-  const endOfDay = new Date(day)
-  endOfDay.setHours(23, 59, 59)
-
-  const habitInstances = await prisma.habitInstance.findMany({
+  const habits = await prisma.habit.findMany({
     where: {
-      date: {
-        gte: startOfDay,
-        lte: endOfDay,
+      scheduleDays: {
+        hasSome: ['everyDay', dayOfWeek],
       },
-      habit: {
-        userId,
-      },
+      userId,
     },
     select: {
       id: true,
-      completed: true,
-      date: true,
-      habit: {
+      name: true,
+      description: true,
+      points: true,
+      habitInstances: {
+        take: 1,
+        where: {
+          date: {
+            gte: dayjs(day).startOf('day').toDate(),
+            lte: dayjs(day).endOf('day').toDate(),
+          },
+        },
         select: {
-          name: true,
-          description: true,
+          completed: true,
         },
       },
     },
-    orderBy: {
-      date: 'asc',
-    },
   })
 
-  return habitInstances
+  return habits
 }
