@@ -7,7 +7,9 @@ import { Button } from '@habit-tracker/ui/components/button'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouteContext } from '@tanstack/react-router'
 import { trpc } from '~/lib/trpc'
-import { Weekday } from '../../../../../packages/database/generated/prisma/enums'
+import { Weekday } from '@habit-tracker/db/enums'
+import type { Habit } from '@habit-tracker/db/browser'
+
 import { cn } from '@habit-tracker/ui/lib/utils'
 
 const habitSchema = z.object({
@@ -18,37 +20,45 @@ const habitSchema = z.object({
   scheduleDays: z.array(z.enum(Weekday)),
 })
 
-type HabitType = z.infer<typeof habitSchema>
-
-const defaultHabit: HabitType = {
-  name: '',
-  userId: '',
-  points: 1,
-  scheduleDays: ['everyDay'],
-}
-
-const formOpts = formOptions({
-  defaultValues: defaultHabit,
-})
+type HabitSchemaType = z.infer<typeof habitSchema>
 
 type NewHabitFormProps = {
   onSuccess?: () => void
+  habit?: Omit<Habit, 'createdAt' | 'updatedAt' | 'userId'>
 }
 
-export const NewHabitForm = ({ onSuccess }: NewHabitFormProps) => {
+export const HabitForm = ({ onSuccess, habit }: NewHabitFormProps) => {
   const { user } = useRouteContext({ from: '__root__' })
   const queryClient = useQueryClient()
 
-  const habitMutationOptions = trpc.habit.createHabit.mutationOptions({
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: trpc.habit.getTodayHabits.queryKey({ userId: user?.id }),
-      })
-      onSuccess?.()
-    },
+  const defaultHabit: HabitSchemaType = {
+    name: habit?.name || '',
+    description: habit?.description || '',
+    userId: user?.id || '',
+    points: habit?.points || 1,
+    scheduleDays: habit?.scheduleDays || ['everyDay'],
+  }
+
+  const formOpts = formOptions({
+    defaultValues: defaultHabit,
   })
 
-  const { mutate: createHabit } = useMutation(habitMutationOptions)
+  const isEditMode = !!habit
+
+  const onMutationSuccess = () => {
+    queryClient.invalidateQueries({
+      queryKey: trpc.habit.getTodayHabits.queryKey({ userId: user?.id }),
+    })
+    onSuccess?.()
+  }
+
+  const { mutate: createHabit } = useMutation(
+    trpc.habit.createHabit.mutationOptions({ onSuccess: onMutationSuccess })
+  )
+
+  const { mutate: updateHabit } = useMutation(
+    trpc.habit.updateHabit.mutationOptions({ onSuccess: onMutationSuccess })
+  )
 
   const form = useForm({
     ...formOpts,
@@ -59,7 +69,11 @@ export const NewHabitForm = ({ onSuccess }: NewHabitFormProps) => {
       onSubmit: habitSchema,
     },
     onSubmit: async ({ value }) => {
-      createHabit(value)
+      if (isEditMode) {
+        updateHabit({ ...value, id: habit.id })
+      } else {
+        createHabit(value)
+      }
     },
   })
 
@@ -117,7 +131,7 @@ export const NewHabitForm = ({ onSuccess }: NewHabitFormProps) => {
                       : field.pushValue(day)
                   }
                   className={cn(
-                    'w-full md:w-28 cursor-default rounded-md p-2 text-center',
+                    'w-full cursor-default rounded-md p-2 text-center md:w-28',
                     field.state.value.includes(day)
                       ? 'bg-primary'
                       : 'bg-secondary'
@@ -156,7 +170,7 @@ export const NewHabitForm = ({ onSuccess }: NewHabitFormProps) => {
             disabled={!canSubmit}
             className="w-fit self-end"
           >
-            {isSubmitting ? '...' : 'Create habit'}
+            {isSubmitting ? '...' : isEditMode ? 'Save changes' : 'Create habit'}
           </Button>
         )}
       />

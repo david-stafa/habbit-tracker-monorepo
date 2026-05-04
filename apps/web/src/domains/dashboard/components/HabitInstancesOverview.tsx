@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { SingleHabitUi } from '~/components/habits/SingleHabitUi'
 import { trpc } from '~/lib/trpc'
 import dayjs from 'dayjs'
+import { EditHabitDialog } from '~/components/habits/EditHabitDialog'
 
 export const HabitInstancesOverview = () => {
   const { user } = useRouteContext({ from: '__root__' })
@@ -81,21 +82,28 @@ export const HabitInstancesOverview = () => {
           </div>
         ) : (
           data.map((habit) => (
-            <SingleHabitUi
+            <div
+              className="flex items-center justify-between gap-1"
               key={habit.id}
-              name={habit.name}
-              description={habit.description}
-              completed={habit.habitInstances[0]?.completed ?? false}
-              onClick={() =>
-                upsertHabitInstance({
-                  habitId: habit.id,
-                  userId: user!.id,
-                  date: selectedDay.format('YYYY-MM-DD'),
-                  completed: habit.habitInstances[0]?.completed ? false : true,
-                  points: habit.points,
-                })
-              }
-            />
+            >
+              <SingleHabitUi
+                name={habit.name}
+                description={habit.description}
+                completed={habit.habitInstances[0]?.completed ?? false}
+                onClick={() =>
+                  upsertHabitInstance({
+                    habitId: habit.id,
+                    userId: user!.id,
+                    date: selectedDay.format('YYYY-MM-DD'),
+                    completed: habit.habitInstances[0]?.completed
+                      ? false
+                      : true,
+                    points: habit.points,
+                  })
+                }
+              />
+              <EditHabitDialog habit={habit} />
+            </div>
           ))
         )}
       </div>

@@ -22,6 +22,7 @@ export const getDailyHabitInstances = async ({
       name: true,
       description: true,
       points: true,
+      scheduleDays: true,
       habitInstances: {
         take: 1,
         where: {

@@ -90,6 +90,9 @@ importers:
       '@habit-tracker/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@habit-tracker/db':
+        specifier: workspace:*
+        version: link:../../packages/database
       '@habit-tracker/ui':
         specifier: workspace:*
         version: link:../../packages/ui

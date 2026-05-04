@@ -7,31 +7,34 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@habit-tracker/ui/components/dialog'
-import { PlusIcon } from '@habit-tracker/ui/icons'
+import { PencilIcon } from '@habit-tracker/ui/icons'
 import { useState } from 'react'
 import { HabitForm } from './HabitForm'
+import type { Habit } from '@habit-tracker/db/browser'
 
-export function NewHabitDialog() {
+export function EditHabitDialog({
+  habit,
+}: {
+  habit: Omit<Habit, 'createdAt' | 'updatedAt' | 'userId'>
+}) {
   const [open, setOpen] = useState(false)
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>
-          <PlusIcon /> Add New Habit
+        <Button variant="ghost" size="icon">
+          <PencilIcon className="text-primary size-5" strokeWidth={1} />
         </Button>
       </DialogTrigger>
       {/* CONTENT */}
       <DialogContent className="min-w-fit">
         {/* HEADER */}
         <DialogHeader>
-          <DialogTitle>Add New Habit</DialogTitle>
-          <DialogDescription>
-            Add a new habit to your tracker.
-          </DialogDescription>
+          <DialogTitle>Edit Habit</DialogTitle>
+          <DialogDescription>Edit the habit details.</DialogDescription>
         </DialogHeader>
-        {/* NEW HABIT FORM */}
-        <HabitForm onSuccess={() => setOpen(false)} />
+        {/* EDIT HABIT FORM */}
+        <HabitForm onSuccess={() => setOpen(false)} habit={habit} />
       </DialogContent>
     </Dialog>
   )

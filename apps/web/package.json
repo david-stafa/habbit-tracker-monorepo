@@ -16,6 +16,7 @@
     "@habit-tracker/api": "workspace:*",
     "@habit-tracker/auth": "workspace:*",
     "@habit-tracker/contracts": "workspace:*",
+    "@habit-tracker/db": "workspace:*",
     "@habit-tracker/ui": "workspace:*",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-form": "^1.28.2",

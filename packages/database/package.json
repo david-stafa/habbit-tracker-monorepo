@@ -23,6 +23,8 @@
     "pg": "^8.16.3"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./browser": "./generated/prisma/browser.ts",
+    "./enums": "./generated/prisma/enums.ts"
   }
 }

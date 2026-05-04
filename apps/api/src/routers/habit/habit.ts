@@ -3,7 +3,12 @@ import { publicProcedure, router } from '../_context'
 import { getHabits } from './methods/getHabits'
 import { getDailyHabitInstances } from './methods/getDailyHabitInstances'
 import { createHabit } from './methods/createHabit'
-import { createHabitInstanceSchema, createHabitSchema } from './schemas/schemas'
+import { updateHabit } from './methods/updateHabit'
+import {
+  createHabitInstanceSchema,
+  createHabitSchema,
+  updateHabitSchema,
+} from './schemas/schemas'
 import { createHabitInstance } from './methods/createHabitInstance'
 
 export const habitRouter = router({
@@ -19,6 +24,11 @@ export const habitRouter = router({
     .input(createHabitSchema)
     .mutation(async ({ input }) => {
       return await createHabit(input)
+    }),
+  updateHabit: publicProcedure
+    .input(updateHabitSchema)
+    .mutation(async ({ input }) => {
+      return await updateHabit(input)
     }),
   upsertHabitInstance: publicProcedure
     .input(createHabitInstanceSchema)

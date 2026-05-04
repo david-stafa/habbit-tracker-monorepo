@@ -2,6 +2,7 @@ import { Weekday } from '@habit-tracker/db'
 import dayjs from 'dayjs'
 import z from 'zod'
 
+/* CREATE HABIT SCHEMA */
 export const createHabitSchema = z.object({
   name: z.string().min(1),
   userId: z.string(),
@@ -12,6 +13,14 @@ export const createHabitSchema = z.object({
 
 export type CreateHabitInput = z.infer<typeof createHabitSchema>
 
+/* UPDATE HABIT SCHEMA */
+export const updateHabitSchema = createHabitSchema.extend({
+  id: z.string(),
+})
+
+export type UpdateHabitInput = z.infer<typeof updateHabitSchema>
+
+/* CREATE HABIT INSTANCE SCHEMA */
 export const createHabitInstanceSchema = z
   .object({
     habitId: z.string(),
