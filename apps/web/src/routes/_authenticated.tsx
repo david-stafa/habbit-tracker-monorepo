@@ -10,6 +10,9 @@ export const Route = createFileRoute('/_authenticated')({
         },
       })
     }
+    return {
+      user: context.user,
+    }
   },
   component: AuthenticatedLayout,
 })

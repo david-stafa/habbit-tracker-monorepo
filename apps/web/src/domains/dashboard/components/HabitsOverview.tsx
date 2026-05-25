@@ -12,16 +12,16 @@ import {
 } from '~/queries/habits/habitQueries'
 
 export const HabitsOverview = () => {
-  const { user } = useRouteContext({ from: '__root__' })
+  const { user } = useRouteContext({ from: '/_authenticated' })
   const queryClient = useQueryClient()
 
   const { isPending, data } = useQuery({
-    queryKey: ['habits', 'dailyInstances', user?.id],
-    queryFn: () => getHabitsQuery(user!.id),
+    queryKey: ['habits', 'dailyInstances', user.id],
+    queryFn: () => getHabitsQuery(user.id),
   })
 
   const { mutate: deleteHabit } = useMutation({
-    mutationFn: (habitId: string) => deleteHabitQuery(habitId, user!.id),
+    mutationFn: (habitId: string) => deleteHabitQuery(habitId, user.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['habits'] }) // refetch list
     },

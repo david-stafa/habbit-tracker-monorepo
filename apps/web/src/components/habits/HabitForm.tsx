@@ -28,13 +28,13 @@ type NewHabitFormProps = {
 }
 
 export const HabitForm = ({ onSuccess, habit }: NewHabitFormProps) => {
-  const { user } = useRouteContext({ from: '__root__' })
+  const { user } = useRouteContext({ from: '/_authenticated' })
   const queryClient = useQueryClient()
 
   const defaultHabit: HabitSchemaType = {
     name: habit?.name || '',
     description: habit?.description || '',
-    userId: user?.id || '',
+    userId: user.id || '',
     points: habit?.points || 1,
     scheduleDays: habit?.scheduleDays || ['everyDay'],
   }
@@ -47,7 +47,7 @@ export const HabitForm = ({ onSuccess, habit }: NewHabitFormProps) => {
 
   const onMutationSuccess = () => {
     queryClient.invalidateQueries({
-      queryKey: trpc.habit.getTodayHabits.queryKey({ userId: user?.id }),
+      queryKey: trpc.habit.getTodayHabits.queryKey({ userId: user.id }),
     })
     onSuccess?.()
   }
@@ -62,8 +62,7 @@ export const HabitForm = ({ onSuccess, habit }: NewHabitFormProps) => {
 
   const form = useForm({
     ...formOpts,
-    //! Figure out how to handle userId without "!"
-    defaultValues: { ...defaultHabit, userId: user!.id },
+    defaultValues: { ...defaultHabit, userId: user.id },
     validators: {
       onBlur: habitSchema,
       onSubmit: habitSchema,

@@ -19,7 +19,7 @@ export const Route = createFileRoute('/_authenticated/dashboard')({
 
 function Dashboard() {
   const navigate = useNavigate()
-  const { user } = useRouteContext({ from: '__root__' })
+  const { user } = useRouteContext({ from: '/_authenticated' })
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSignOut = async () => {
@@ -40,7 +40,7 @@ function Dashboard() {
 
   return (
     <div className="p-4 md:p-8">
-      <div className="flex items-center justify-end gap-1 mb-4">
+      <div className="mb-4 flex items-center justify-end gap-1">
         <ModeToggle />
         <Button
           onClick={handleSignOut}
@@ -50,8 +50,8 @@ function Dashboard() {
           {isLoading ? 'Signing out…' : 'Sign Out'}
         </Button>
       </div>
-      <div className="flex flex-col md:flex-row h-fit items-start justify-between mb-4">
-        <TypographyH2>Welcome, {user?.name}.</TypographyH2>
+      <div className="mb-4 flex h-fit flex-col items-start justify-between md:flex-row">
+        <TypographyH2>Welcome, {user.name}.</TypographyH2>
         <NewHabitDialog />
       </div>
       <div className="flex flex-col items-start gap-2 md:flex-row">

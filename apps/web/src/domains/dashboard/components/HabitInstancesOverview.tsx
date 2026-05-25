@@ -14,13 +14,13 @@ import dayjs from 'dayjs'
 import { EditHabitDialog } from '~/components/habits/EditHabitDialog'
 
 export const HabitInstancesOverview = () => {
-  const { user } = useRouteContext({ from: '__root__' })
+  const { user } = useRouteContext({ from: '/_authenticated' })
   const [selectedDay, setSelectedDay] = useState(dayjs())
   const queryClient = useQueryClient()
 
   const { data, isLoading, isSuccess } = useQuery(
     trpc.habit.getTodayHabits.queryOptions({
-      userId: user!.id,
+      userId: user.id,
       day: selectedDay.toISOString(),
     })
   )
@@ -30,7 +30,7 @@ export const HabitInstancesOverview = () => {
       onSuccess: () => {
         queryClient.invalidateQueries({
           queryKey: trpc.habit.getTodayHabits.queryKey({
-            userId: user!.id,
+            userId: user.id,
             day: selectedDay.toISOString(),
           }),
         })
@@ -93,7 +93,7 @@ export const HabitInstancesOverview = () => {
                 onClick={() =>
                   upsertHabitInstance({
                     habitId: habit.id,
-                    userId: user!.id,
+                    userId: user.id,
                     date: selectedDay.format('YYYY-MM-DD'),
                     completed: habit.habitInstances[0]?.completed
                       ? false

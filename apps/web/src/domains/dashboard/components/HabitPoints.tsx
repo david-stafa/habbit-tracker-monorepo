@@ -7,11 +7,11 @@ import { useRouteContext } from '@tanstack/react-router'
 import { getAllHabitPointsQuery } from '~/queries/habits/habitQueries'
 
 export const HabitPoints = () => {
-  const { user } = useRouteContext({ from: '__root__' })
+  const { user } = useRouteContext({ from: '/_authenticated' })
 
   const { isPending, isError, data } = useQuery({
-    queryKey: ['habits', 'allHabitPoints', user?.id],
-    queryFn: () => getAllHabitPointsQuery(user!.id),
+    queryKey: ['habits', 'allHabitPoints', user.id],
+    queryFn: () => getAllHabitPointsQuery(user.id),
   })
 
   if (isPending) return <div>Loading...</div>
